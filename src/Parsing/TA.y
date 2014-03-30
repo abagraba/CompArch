@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import java.util.HashMap;
 
-import CodeGen.*;
 import Compiler.*;
 %}
       
