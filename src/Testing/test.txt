@@ -1,0 +1,43 @@
+room mepanel{
+
+	switch{
+		[,]
+			print("Hi")
+	}
+
+	print("You come across a massive control panel overlooking the chamber. You hear howling coming from the trapped grue.")
+
+	switch{
+		[r]
+			print("Pull the trigger")
+			jump(mefinale)
+		[g]
+			print("Flip the switch")
+			jump(mefinale)
+		[b] 
+			print("Pull the lever")
+			jump(mefinale)
+		[a]
+			print("Walk away")
+			jump(mefinale)
+	}
+
+}
+
+room mefinale{
+
+	switch{
+		[r] 
+			print("You pull the trigger.\nThe walls turn red.")
+		[g]  
+			print("You pull the trigger.\nThe walls turn green.")
+		[b] 
+			print("You pull the trigger.\nThe walls turn blue.")
+		[a] 
+			print("You walk away. The grue shrieks and you hear the glass beginning to crack under the impact of its blows. The console buzzes and announces 'Error! Security breach!' Self-destruct sequence initiating.")
+	}
+
+	print("You fall to your knees.")
+	print("'What have I done', you scream.")
+	
+}

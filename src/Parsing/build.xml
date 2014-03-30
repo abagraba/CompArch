@@ -1,0 +1,41 @@
+<project name="Flex/Yacc Builder" default="all" basedir=".">
+
+	<target name="all">
+		<antcall target="build">
+			<param name="filename" value="TA" />
+		</antcall>
+		<antcall target="clean" />
+	</target>
+
+	<target name="build">
+		<echo message="${filename}"/>
+		<antcall target="flex">
+			<param name="target" value="${filename}" />
+		</antcall>
+		<antcall target="yacc">
+			<param name="target" value="${filename}" />
+		</antcall>
+	</target>
+
+	<target name="flex">
+		<java jar="jflex.jar" fork="true">
+			<arg value="-q" />
+			<arg value="--noinputstreamctor" />
+			<arg value="${target}.flex" />
+		</java>
+	</target>
+	<target name="yacc">
+		<exec executable="yacc.exe">
+			<arg line="-v -J -Jclass=${target}Parser -Jpackage=Parsing ${target}.y" />
+		</exec>
+	</target>
+
+	<target name="clean">
+		<delete>
+			<fileset dir="." includes="*.output" />
+		</delete>
+		<delete>
+			<fileset dir="." includes="*.java~" />
+		</delete>
+	</target>
+</project>
