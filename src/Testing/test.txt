@@ -2,23 +2,23 @@ room mepanel{
 
 	switch{
 		[,]
-			print("Hi")
+			print("Hi\n")
 	}
 
-	print("You come across a massive control panel overlooking the chamber. You hear howling coming from the trapped grue.")
+	print("You come across a massive control panel overlooking the chamber. You hear howling coming from the trapped grue.\n")
 
 	switch{
 		[r]
-			print("Pull the trigger")
+			print("Pull the trigger\n")
 			jump(mefinale)
 		[g]
-			print("Flip the switch")
+			print("Flip the switch\n")
 			jump(mefinale)
 		[b] 
-			print("Pull the lever")
+			print("Pull the lever\n")
 			jump(mefinale)
 		[a]
-			print("Walk away")
+			print("Walk away\n")
 			jump(mefinale)
 	}
 
@@ -28,16 +28,20 @@ room mefinale{
 
 	switch{
 		[r] 
-			print("You pull the trigger.\nThe walls turn red.")
+			print("You pull the trigger.\n")
+			print("The walls turn red.\n")
 		[g]  
-			print("You pull the trigger.\nThe walls turn green.")
+			print("You pull the trigger.\n")
+			print("The walls turn green.\n")
 		[b] 
-			print("You pull the trigger.\nThe walls turn blue.")
+			print("You pull the trigger.\n")
+			print("The walls turn blue.\n")
 		[a] 
 			print("You walk away. The grue shrieks and you hear the glass beginning to crack under the impact of its blows. The console buzzes and announces 'Error! Security breach!' Self-destruct sequence initiating.")
 	}
 
-	print("You fall to your knees.")
-	print("'What have I done', you scream.")
+	print("You fall to your knees.\n")
+	print("'What have I done', you scream.\n")
+	print("Hi\n")
 	
 }

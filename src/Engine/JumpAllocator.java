@@ -19,7 +19,7 @@ public class JumpAllocator {
 		for (int i = 0; i < tables.size(); i++) {
 			sb.append("jt" + i);
 			sb.append(":\n\t.word ");
-			for (int l = 0; l < tables.size(); l++)
+			for (int l = 0; l < tables.get(i); l++)
 				sb.append("JL" + i + '_' + l + ", ");
 			sb.append("JD" + i);
 			sb.append("\n");

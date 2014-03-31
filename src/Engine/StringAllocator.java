@@ -10,28 +10,27 @@ public class StringAllocator {
 	private static int						label	= 0;
 
 	public static String allocate(String string) {
-		if (!labels.containsKey(string))
-			labels.put(string, "string" + label++);
-		return labels.get(string);
+		if (labels.containsValue(string))
+			for (String s : labels.keySet())
+				if (labels.get(s).equals(string))
+					return s;
+		labels.put("string" + label, string);
+		return "string" + label++;
 	}
 
 	public static String generateMIPSData() {
 		StringBuilder sb = new StringBuilder();
 		for (String s : labels.keySet()) {
-			sb.append(labels.get(s));
-			sb.append(":\n\t.asciiz(\"");
 			sb.append(s);
+			sb.append(":\n\t.asciiz(\"");
+			sb.append(labels.get(s));
 			sb.append("\");\n");
 		}
 		return sb.toString();
 	}
 
-	public static void printAllocation() {
-		System.out.println("String Allocation:");
-		System.out.println();
-		for (String string : labels.keySet())
-			System.out.println("\t" + labels.get(string) + ":\t" + string);
-		System.out.println();
+	public static String interpret(String s) {
+		return labels.get(s);
 	}
 
 }

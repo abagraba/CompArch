@@ -22,64 +22,56 @@ import Engine.*;
 
 
 %%
-accept		:	file								{ System.out.println(StringAllocator.generateMIPSData()); System.out.println(JumpAllocator.generateMIPSData()); ((LogEntry)$1.obj).printLog(-1); }
+accept		:	file								{ if (debug)((Entry)$1.obj).debug();else ((Entry)$1.obj).codeGen();}
 			;
 
-file		:	room								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj);}
-			| 	file room							{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry($2.obj);}
+file		:	room								{ $$.obj = new File(); ((File)$$.obj).addRoom((Room)$1.obj);}
+			| 	file room							{ $$.obj = $1.obj; ((File)$$.obj).addRoom((Room)$2.obj);}
 			;	
 
-room		:	ROOM WORD '{' roomdata '}'			{ $$.obj = $4.obj; ((LogEntry)$$.obj).addEntry("ROOM: " + $2.sval); }
+room		:	ROOM WORD '{' roomdata '}'			{ $$.obj = new Room($2.sval, (LinkedList<Entry>)$4.obj); }
 			;
 		
-roomdata	:	switch								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj); }
-			|	commands							{ $$.obj = $1.obj; }
-			|	roomdata switch						{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntries($2.obj); }
-			|	roomdata commands					{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntries($2.obj); }
+roomdata	:	commands							{ $$.obj = $1.obj; }
+			|	roomdata commands					{ $$.obj = $1.obj; ((LinkedList<Entry>)$$.obj).addAll((LinkedList<Entry>)$2.obj); }
 			;
 			
-switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = $3.obj; ((LogEntry)$$.obj).addEntry("SWITCH block:"); JumpAllocator.allocate($3.ival); }
+switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = new Switch((LinkedList<Case>)$3.obj); }
 			;
 			
-caseBlock	:	case								{ $$.ival = 1; $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj); }
-			|	caseBlock case						{ $$.ival = $1.ival + 1; $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry($2.obj); }
+caseBlock	:	case								{ LinkedList<Case> list = new LinkedList<Case>(); list.add((Case)$1.obj); $$.obj = list; }
+			|	caseBlock case						{ LinkedList<Case> list = (LinkedList<Case>)$1.obj; list.add((Case)$2.obj); $$.obj = list; }
 			;
 
-case		:	CASE commands						{ $$.obj = $2.obj; ((LogEntry)$$.obj).addEntry("If [" + (char)($1.ival) + "] is pressed:"); }
+case		:	CASE commands						{ $$.obj = new Case($1.ival, (LinkedList<Entry>)$2.obj); }
 			;
 
-commands	:										{ $$.obj = new LogEntry(); }
-			|	commands command					{ $$.obj = $1.obj; ((LogEntry)$1.obj).addSubEntry($2.obj);}
+commands	:										{ $$.obj = new LinkedList<Entry>(); }
+			|	commands command					{ LinkedList<Entry> entries = (LinkedList<Entry>)$1.obj; entries.add((Entry)$2.obj); $$.obj = entries; }
 			;
 			
 command		:	switch								{ $$.obj = $1.obj; }
 			|	method								{ $$.obj = $1.obj; }
 			;
 			
-method		:	METHOD '(' args ')'					{ $$.obj = $3.obj; ((LogEntry)$$.obj).addEntry("Calling [" + method[$1.ival] + "] with args:"); }
+method		:	METHOD '(' args ')'					{ $$.obj = new Method($1.ival, (LinkedList<String>) $3.obj); }
 			;
 			
-args		:	arg									{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry(new LogEntry('[' + $1.sval + ']')); }
-			|	args ',' arg						{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry(new LogEntry('[' + $3.sval + ']')); }
+args		:	arg									{ LinkedList<String> args = new LinkedList<String>(); args.add($1.sval); $$.obj = args; }
+			|	args ',' arg						{ LinkedList<String> args = (LinkedList<String>) $1.obj; args.add($3.sval); $$.obj = args; }
 			;
 			
-arg			:	STRING								{ $$.sval = '"' + $1.sval + '"'; StringAllocator.allocate($1.sval); }
+arg			:	STRING								{ $$.sval = StringAllocator.allocate($1.sval); }
 			|	WORD								{ $$.sval = $1.sval; }
 			|	NUM									{ $$.sval = "" + $1.ival; }
 			;
 
 			
 %%
-	public static boolean debug;
+	public static boolean debug = false;
 	private TALexer lexer;
 
 	
-	private LinkedList<LogEntry> logs = new LinkedList<LogEntry>();
-	private LogEntry log = new LogEntry();
-	
-	private String[] method = new String[]{"Print", "Jump"};
-	
-
 	private int yylex () {
 		int token = -1;
 		try {
