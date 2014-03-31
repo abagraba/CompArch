@@ -15,9 +15,8 @@ public class StringAllocator {
 		return labels.get(string);
 	}
 
-	public static String generateMIPS() {
+	public static String generateMIPSData() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(".data\n");
 		for (String s : labels.keySet()) {
 			sb.append(labels.get(s));
 			sb.append(":\n\t.asciiz(\"");

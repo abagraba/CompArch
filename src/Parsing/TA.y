@@ -22,7 +22,7 @@ import Engine.*;
 
 
 %%
-accept		:	file								{ System.out.println(StringAllocator.generateMIPS());((LogEntry)$1.obj).printLog(-1); }
+accept		:	file								{ System.out.println(StringAllocator.generateMIPSData()); System.out.println(JumpAllocator.generateMIPSData()); ((LogEntry)$1.obj).printLog(-1); }
 			;
 
 file		:	room								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj);}
@@ -38,11 +38,11 @@ roomdata	:	switch								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEnt
 			|	roomdata commands					{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntries($2.obj); }
 			;
 			
-switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = $3.obj; ((LogEntry)$$.obj).addEntry("SWITCH block:"); }
+switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = $3.obj; ((LogEntry)$$.obj).addEntry("SWITCH block:"); JumpAllocator.allocate($3.ival); }
 			;
 			
-caseBlock	:	case								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj); }
-			|	caseBlock case						{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry($2.obj); }
+caseBlock	:	case								{ $$.ival = 1; $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj); }
+			|	caseBlock case						{ $$.ival = $1.ival + 1; $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry($2.obj); }
 			;
 
 case		:	CASE commands						{ $$.obj = $2.obj; ((LogEntry)$$.obj).addEntry("If [" + (char)($1.ival) + "] is pressed:"); }
@@ -52,8 +52,7 @@ commands	:										{ $$.obj = new LogEntry(); }
 			|	commands command					{ $$.obj = $1.obj; ((LogEntry)$1.obj).addSubEntry($2.obj);}
 			;
 			
-command		:										{  }
-			|	switch								{ $$.obj = $1.obj; }
+command		:	switch								{ $$.obj = $1.obj; }
 			|	method								{ $$.obj = $1.obj; }
 			;
 			
