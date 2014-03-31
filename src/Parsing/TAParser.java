@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.LinkedList;
 
+import Engine.StringAllocator;
+
 
 
 //#line 26 "TAParser.java"
@@ -394,13 +396,15 @@ public class TAParser {
 				case 1:
 				// #line 25 "TA.y"
 				{
+					StringAllocator.printAllocation();
+					System.out.println(StringAllocator.generateMIPS());
 					((LogEntry) val_peek(0).obj).printLog(-1);
 				}
 					break;
 				case 2:
 				// #line 28 "TA.y"
 				{
-					yyval.obj = new LogEntry("File");
+					yyval.obj = new LogEntry();
 					((LogEntry) yyval.obj).addSubEntry(val_peek(0).obj);
 				}
 					break;
@@ -527,6 +531,7 @@ public class TAParser {
 				// #line 67 "TA.y"
 				{
 					yyval.sval = '"' + val_peek(0).sval + '"';
+					StringAllocator.allocate(val_peek(0).sval);
 				}
 					break;
 				case 22:

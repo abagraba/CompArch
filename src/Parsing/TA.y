@@ -5,7 +5,8 @@ import java.io.IOException;
 
 import java.util.HashMap;
 
-import Compiler.*;
+import Engine.*;
+
 %}
       
       
@@ -21,7 +22,7 @@ import Compiler.*;
 
 
 %%
-accept		:	file								{ ((LogEntry)$1.obj).printLog(-1); }
+accept		:	file								{ System.out.println(StringAllocator.generateMIPS());((LogEntry)$1.obj).printLog(-1); }
 			;
 
 file		:	room								{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry($1.obj);}
@@ -63,7 +64,7 @@ args		:	arg									{ $$.obj = new LogEntry(); ((LogEntry)$$.obj).addSubEntry(ne
 			|	args ',' arg						{ $$.obj = $1.obj; ((LogEntry)$$.obj).addSubEntry(new LogEntry('[' + $3.sval + ']')); }
 			;
 			
-arg			:	STRING								{ $$.sval = '"' + $1.sval + '"'; }
+arg			:	STRING								{ $$.sval = '"' + $1.sval + '"'; StringAllocator.allocate($1.sval); }
 			|	WORD								{ $$.sval = $1.sval; }
 			|	NUM									{ $$.sval = "" + $1.ival; }
 			;
