@@ -29,10 +29,11 @@ STRING		=	[^\n\r\"]+
 ROOM 		= 	room
 
 SWITCH		=	switch
-CASE			=	\[{L}\]
+CASE			=	\[{NUM}\]
 
 PRINT		=	print
 JUMP		=	jump
+INPUT		=	input
 
 %x STR
 
@@ -43,6 +44,7 @@ JUMP		=	jump
 
 	{PRINT}		{ yyparser.yylval = new TAParserVal(0); return TAParser.METHOD; }
 	{JUMP}		{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }
+	{INPUT}		{ yyparser.yylval = new TAParserVal(2); return TAParser.METHOD; }
 
 	{CASE}		{ yyparser.yylval = new TAParserVal(yytext().charAt(1)); return TAParser.CASE; }
 

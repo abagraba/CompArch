@@ -5,12 +5,16 @@ import java.util.LinkedList;
 
 
 public class Case extends Entry {
+	private boolean				def			= true;
 	private char				c;
 	private LinkedList<Entry>	commands	= new LinkedList<Entry>();
 
 	public Case(int c, LinkedList<Entry> commands) {
 		this.c = (char) c;
 		this.commands = commands;
+		Entry e = commands.get(commands.size() - 1);
+		if (e instanceof Method)
+			def = ((Method) e).i != Method.jump;
 	}
 
 	@Override
@@ -27,6 +31,7 @@ public class Case extends Entry {
 	public void codeGen(int arg) {
 		for (Entry e : commands)
 			e.codeGen(0);
-		System.out.println("		j		JD" + arg);
+		if (def)
+			System.out.println("		j		JD" + arg);
 	}
 }
