@@ -55,8 +55,9 @@ public class Method extends Entry {
 				String L1 = LabelAllocator.allocate();
 				String L2 = LabelAllocator.allocate();
 				System.out.println("		li		$t0, " + i);
-				System.out.println("		li		$v0, 5");
+				System.out.println("		li		$v0, 12");
 				System.out.println("		syscall");
+				System.out.println("		addi	$v0, $v0, -48");
 				System.out.println("		bltz	$v0, " + L1);
 				System.out.println("		sub		$t1, $v0, $t0");
 				System.out.println("		bgez	$t1, " + L1);
