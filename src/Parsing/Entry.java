@@ -2,20 +2,24 @@ package Parsing;
 
 import Engine.JumpAllocator;
 import Engine.StringAllocator;
+import Engine.SyscallAllocator;
+import Testing.Output;
 
 
 
 public abstract class Entry {
 
 	public void codeGen() {
-		System.out.println(".data");
-		System.out.println("input:");
-		System.out.println("	.space	1");
-		System.out.println(StringAllocator.generateMIPSData());
-		System.out.println(JumpAllocator.generateMIPSData());
-		System.out.println(".text");
-		System.out.println(".globl	main");
+		Output.print(".data");
+		Output.print("input:");
+		Output.print("	.space	1");
+		Output.print(StringAllocator.generateMIPSData());
+		Output.print(JumpAllocator.generateMIPSData());
+		Output.print(".text");
+		Output.print(".globl	main");
 		codeGen(-1);
+		Output.print("error:");
+		SyscallAllocator.call(4, "string1");
 	}
 
 	public void debug() {

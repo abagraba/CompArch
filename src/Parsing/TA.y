@@ -19,6 +19,7 @@ import Engine.*;
 %token	METHOD
 
 %token	SWITCH
+%token	SWITCHR
 
 
 %%
@@ -36,7 +37,8 @@ roomdata	:	commands							{ $$.obj = $1.obj; }
 			|	roomdata commands					{ $$.obj = $1.obj; ((LinkedList<Entry>)$$.obj).addAll((LinkedList<Entry>)$2.obj); }
 			;
 			
-switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = new Switch((LinkedList<Case>)$3.obj); }
+switch		:	SWITCH '{' caseBlock '}'			{ $$.obj = new Switch((LinkedList<Case>)$3.obj, false); }
+			|	SWITCHR '{' caseBlock '}'			{ $$.obj = new Switch((LinkedList<Case>)$3.obj, true); }
 			;
 			
 caseBlock	:	case								{ LinkedList<Case> list = new LinkedList<Case>(); list.add((Case)$1.obj); $$.obj = list; }
@@ -55,6 +57,7 @@ command		:	switch								{ $$.obj = $1.obj; }
 			;
 			
 method		:	METHOD '(' args ')'					{ $$.obj = new Method($1.ival, (LinkedList<String>) $3.obj); }
+			|	METHOD '(' ')'						{ $$.obj = new Method($1.ival, new LinkedList<String>()); }
 			;
 			
 args		:	arg									{ LinkedList<String> args = new LinkedList<String>(); args.add($1.sval); $$.obj = args; }
@@ -87,7 +90,7 @@ arg			:	STRING								{ $$.sval = StringAllocator.allocate($1.sval); }
 
 
 	public void yyerror (String error) {
-		System.err.println ("Error: " + error);
+		System.err.println ("Error: [" + (lexer.line() + 1 )+ ':' + lexer.yytext() + "] :" + error);
 	}
 
 

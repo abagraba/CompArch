@@ -15,6 +15,16 @@ package Parsing;
     this(r);
     this.yyparser = yyparser;
   }
+  
+  public int line(){
+  	return yyline;
+  }
+  
+  public int pos(){
+  	return yychar;
+  }
+  
+  
 %}
 
 
@@ -28,12 +38,18 @@ STRING		=	[^\n\r\"]+
 
 ROOM 		= 	room
 
+VAL				=	[0-9a-zA-Z ]
+
 SWITCH		=	switch
-CASE			=	\[{NUM}\]
+SWITCHR		=	switchr
+CASE			=	\[{VAL}\]
 
 PRINT		=	print
+PRINTLN	=	println
 JUMP		=	jump
 INPUT		=	input
+
+NL			=   (\r\n|[\n\r]) 
 
 %x STR
 
@@ -41,10 +57,12 @@ INPUT		=	input
 
 	{ROOM}		{ return TAParser.ROOM; }
 	{SWITCH}	{ return TAParser.SWITCH; }
+	{SWITCHR}	{ return TAParser.SWITCHR; }
 
 	{PRINT}		{ yyparser.yylval = new TAParserVal(0); return TAParser.METHOD; }
-	{JUMP}		{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }
-	{INPUT}		{ yyparser.yylval = new TAParserVal(2); return TAParser.METHOD; }
+	{PRINTLN}		{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }
+	{JUMP}		{ yyparser.yylval = new TAParserVal(2); return TAParser.METHOD; }
+	{INPUT}		{ yyparser.yylval = new TAParserVal(3); return TAParser.METHOD; }
 
 	{CASE}		{ yyparser.yylval = new TAParserVal(yytext().charAt(1)); return TAParser.CASE; }
 
@@ -57,7 +75,7 @@ INPUT		=	input
 	\"			{ yybegin(STR); str = ""; }
 	
 	
-<STR>{
+	<STR>{
 	\"			{ yyparser.yylval = new TAParserVal(str); yybegin(YYINITIAL); return TAParser.STRING; }
 	{STRING}	{ str = yytext(); }
 }
@@ -66,7 +84,8 @@ INPUT		=	input
 	{NUM}		{ yyparser.yylval = new TAParserVal(Integer.parseInt(yytext())); return TAParser.NUM; }
 	{WORD}		{ yyparser.yylval = new TAParserVal(yytext()); return TAParser.WORD; }
 	
-	[\r\n\t ]	{  }
+	{NL}		{ yyline++; }
+	[\t ]		{  }
 	.			{ System.err.println("Unexpected "+ yytext()); }
 	
 	

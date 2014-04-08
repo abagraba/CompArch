@@ -2,17 +2,21 @@ package Parsing;
 
 import java.util.LinkedList;
 
+import Engine.InputAllocator;
 import Engine.StringAllocator;
+import Engine.SyscallAllocator;
+import Testing.Output;
 
 
 
 public class Method extends Entry {
 
 	protected static final int		print	= 0;
-	protected static final int		jump	= 1;
-	protected static final int		input	= 2;
+	protected static final int		println	= 1;
+	protected static final int		jump	= 2;
+	protected static final int		input	= 3;
 
-	private static final String[]	name	= new String[] { "Print", "Jump", "Input" };
+	private static final String[]	name	= new String[] { "Print", "Println", "Jump", "Input" };
 
 	protected int					i;
 	protected String[]				args;
@@ -27,48 +31,66 @@ public class Method extends Entry {
 		String t = "";
 		for (int i = 0; i < indent; i++)
 			t += '\t';
-		System.out.println(t + "Call [" + name[i] + "] with args:");
+		Output.print(t + "Call [" + name[i] + "] with args:");
 		t += '\t';
 		for (String s : args)
-			System.out.println(t + '[' + StringAllocator.interpret(s) + ']');
+			Output.print(t + '[' + StringAllocator.interpret(s) + ']');
 	}
 
 	@Override
 	public void codeGen(int arg) {
+		int n = args.length;
 		switch (i) {
 			case print:
-				if (args.length != 1)
-					System.out.println("		#Invalid number of arguments. Expected 1.");
-				System.out.println("		li		$v0, 1");
-				System.out.println("		la		$a0, " + args[0]);
-				System.out.println("		syscall");
+				if (n != 1) {
+					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+					return;
+				}
+				SyscallAllocator.call(4, args[0]);
+				break;
+			case println:
+				if (n != 1 && n != 0) {
+					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 0 or 1. Received " + n + ".");
+					return;
+				}
+				if (n == 1)
+					SyscallAllocator.call(4, args[0]);
+				SyscallAllocator.call(4, "string0");
 				break;
 			case jump:
-				if (args.length != 1)
-					System.out.println("		#Invalid number of arguments. Expected 1.");
-				System.out.println("		j		" + args[0]);
+				if (n != 1) {
+					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+					return;
+				}
+				Output.print("		j		" + args[0]);
 				break;
 			case input:
-				if (args.length != 1)
-					System.out.println("		#Invalid number of arguments. Expected 1.");
+				if (n != 1) {
+					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+					return;
+				}
 				int i = Integer.parseInt(args[0]);
-				String L1 = LabelAllocator.allocate();
-				String L2 = LabelAllocator.allocate();
-				System.out.println("		li		$t0, " + i);
-				System.out.println("		li		$v0, 12");
-				System.out.println("		syscall");
-				System.out.println("		addi	$v0, $v0, -48");
-				System.out.println("		bltz	$v0, " + L1);
-				System.out.println("		sub		$t1, $v0, $t0");
-				System.out.println("		bgez	$t1, " + L1);
-				System.out.println("		add		$s0, $v0, $0");
-				System.out.println("		j		" + L2);
-				System.out.println(L1 + ':');
-				System.out.println("		add		$s0, $t0, $0");
-				System.out.println(L2 + ':');
+				String l = InputAllocator.allocate();
+				String lx = l + "_x";
+				String le = l + "_end";
+				Output.print(l + ':');
+				Output.print("		li		$t0, " + i + "					# $t0 = Upper Bound of input."); // $t0 = Upper Bound
+				SyscallAllocator.call(12);
+				Output.print("		add		$s1, $v0, $0			# s1 = input");
+				Output.print("		addi	$v0, $v0, -49"); // '1' = 0
+				Output.print("		bltz	$v0, " + lx + "			# Jump to " + lx + " if $v0 < 0.");
+				Output.print("		sub		$t1, $v0, $t0");
+				Output.print("		bgez	$t1, " + lx + "			# Jump to " + lx + " if $v0 > max Input.");
+				Output.print("		add		$s0, $v0, $t0			# $s0 = [1, maxInput]");
+				Output.print("		addi	$s0, $s0, -1			# $s0 = [0, maxInput - 1]");
+				Output.print("		j		" + le);
+				Output.print(lx + ':');
+				Output.print("		add		$s0, $t0, $0			# $s0 = maxInput");
+				Output.print(le + ':');
+				SyscallAllocator.call(4, "string0");
 				break;
 			default:
-				System.out.println("		#Invalid method call.");
+				Output.print("		#Invalid method call.");
 		}
 
 	}

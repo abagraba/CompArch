@@ -1,4 +1,0 @@
-METHODNAME(arg1){
-
-
-}

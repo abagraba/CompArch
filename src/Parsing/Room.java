@@ -2,6 +2,8 @@ package Parsing;
 
 import java.util.LinkedList;
 
+import Testing.Output;
+
 
 
 public class Room extends Entry {
@@ -19,7 +21,7 @@ public class Room extends Entry {
 		String t = "";
 		for (int i = 0; i < indent; i++)
 			t += '\t';
-		System.out.println(t + "Room [" + name + "]:");
+		Output.print(t + "Room [" + name + "]:");
 		t += '\t';
 		for (Entry e : entries)
 			e.debug(indent + 1);
@@ -27,8 +29,8 @@ public class Room extends Entry {
 
 	@Override
 	public void codeGen(int indent) {
-		System.out.println();
-		System.out.println(name + ':');
+		Output.print("");
+		Output.print(name + ':');
 		for (Entry e : entries)
 			e.codeGen(indent + 1);
 	}
