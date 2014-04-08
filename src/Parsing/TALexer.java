@@ -34,12 +34,12 @@ class TALexer {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\36\1\4\1\6\1\6\1\5\22\0\1\14\1\0\1\10"+
-    "\5\0\1\33\1\34\2\0\1\35\3\0\12\3\7\0\32\15\1\1"+
-    "\1\0\1\2\1\0\1\7\1\0\2\15\1\22\4\15\1\23\1\20"+
-    "\1\27\1\15\1\26\1\13\1\25\1\12\1\24\1\15\1\11\1\16"+
-    "\1\21\1\30\1\15\1\17\3\15\1\31\1\0\1\32\7\0\1\6"+
-    "\u1fa2\0\1\6\1\6\udfd6\0";
+    "\11\0\1\36\1\30\1\37\1\37\1\27\22\0\1\11\1\0\1\5"+
+    "\5\0\1\33\1\34\2\0\1\35\3\0\12\3\7\0\32\12\1\1"+
+    "\1\0\1\2\1\0\1\4\1\0\2\12\1\17\1\12\1\26\1\12"+
+    "\1\24\1\20\1\15\2\12\1\23\1\10\1\22\1\7\1\21\1\12"+
+    "\1\6\1\13\1\16\1\25\1\12\1\14\3\12\1\31\1\0\1\32"+
+    "\7\0\1\37\u1fa2\0\1\37\1\37\udfd6\0";
 
   /** 
    * Translates characters to character classes
@@ -52,13 +52,14 @@ class TALexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\2\1\1\2\2\3\1\4\1\5\1\4\1\6"+
-    "\4\4\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
-    "\3\0\5\4\1\16\1\17\5\4\1\20\3\4\1\21"+
-    "\1\4\1\22\1\23\1\24\1\4\1\25\1\26";
+    "\2\0\2\1\1\2\1\3\1\4\2\3\1\5\5\3"+
+    "\2\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15"+
+    "\3\0\7\3\1\16\1\17\7\3\1\20\5\3\1\21"+
+    "\2\3\1\22\1\3\1\23\1\24\1\25\2\3\1\26"+
+    "\1\3\1\27\1\30";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[49];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -83,16 +84,17 @@ class TALexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\37\0\76\0\135\0\174\0\76\0\233\0\272"+
-    "\0\76\0\331\0\76\0\370\0\u0117\0\u0136\0\u0155\0\76"+
-    "\0\76\0\76\0\76\0\76\0\u0174\0\76\0\u0193\0\u01b2"+
-    "\0\u01d1\0\u01f0\0\u020f\0\u022e\0\u024d\0\u026c\0\76\0\76"+
-    "\0\u028b\0\u02aa\0\u02c9\0\u02e8\0\u0307\0\272\0\u0326\0\u0345"+
-    "\0\u0364\0\272\0\u0383\0\272\0\u03a2\0\u03c1\0\u03e0\0\272"+
-    "\0\272";
+    "\0\0\0\40\0\100\0\140\0\200\0\240\0\100\0\300"+
+    "\0\340\0\100\0\u0100\0\u0120\0\u0140\0\u0160\0\u0180\0\u01a0"+
+    "\0\100\0\100\0\100\0\100\0\100\0\100\0\u01c0\0\100"+
+    "\0\u01e0\0\u0200\0\u0220\0\u0240\0\u0260\0\u0280\0\u02a0\0\u02c0"+
+    "\0\u02e0\0\u0300\0\100\0\100\0\u0320\0\u0340\0\u0360\0\u0380"+
+    "\0\u03a0\0\u03c0\0\u03e0\0\240\0\u0400\0\u0420\0\u0440\0\u0460"+
+    "\0\u0480\0\240\0\u04a0\0\u04c0\0\240\0\u04e0\0\u0500\0\240"+
+    "\0\u0520\0\u0540\0\u0560\0\240\0\u0580\0\240\0\240";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[49];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -115,47 +117,53 @@ class TALexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\3\1\5\1\6\1\7\1\0\1\10"+
-    "\1\11\1\12\2\10\1\13\1\10\1\14\1\10\1\15"+
-    "\3\10\1\16\2\10\1\17\1\10\1\20\1\21\1\22"+
-    "\1\23\1\24\1\13\4\25\2\0\2\25\1\26\26\25"+
-    "\42\0\1\27\3\0\1\30\1\0\3\27\1\31\14\27"+
-    "\11\0\1\5\3\0\1\10\1\0\3\10\1\0\14\10"+
-    "\12\0\1\6\35\0\1\10\3\0\1\10\1\0\3\10"+
-    "\1\0\14\10\11\0\1\10\3\0\1\10\1\0\1\10"+
-    "\1\32\1\10\1\0\14\10\11\0\1\10\3\0\1\10"+
-    "\1\0\3\10\1\0\2\10\1\33\11\10\11\0\1\10"+
-    "\3\0\1\10\1\0\3\10\1\0\10\10\1\34\3\10"+
-    "\11\0\1\10\3\0\1\10\1\0\1\35\2\10\1\0"+
-    "\14\10\11\0\1\10\3\0\1\10\1\0\3\10\1\0"+
-    "\13\10\1\36\6\0\4\25\2\0\2\25\1\0\26\25"+
-    "\2\0\1\37\1\30\3\0\1\30\1\0\3\30\1\0"+
-    "\14\30\10\0\1\40\1\30\3\0\1\30\1\0\3\30"+
-    "\1\0\14\30\10\0\1\37\37\0\1\10\3\0\1\10"+
-    "\1\0\1\10\1\41\1\10\1\0\14\10\11\0\1\10"+
-    "\3\0\1\10\1\0\3\10\1\0\3\10\1\42\10\10"+
-    "\11\0\1\10\3\0\1\10\1\0\3\10\1\0\7\10"+
-    "\1\43\4\10\11\0\1\10\3\0\1\10\1\0\3\10"+
-    "\1\0\3\10\1\44\10\10\11\0\1\10\3\0\1\10"+
-    "\1\0\2\10\1\45\1\0\14\10\11\0\1\10\3\0"+
-    "\1\10\1\0\2\10\1\46\1\0\14\10\11\0\1\10"+
-    "\3\0\1\10\1\0\3\10\1\0\4\10\1\47\7\10"+
-    "\11\0\1\10\3\0\1\10\1\0\3\10\1\0\13\10"+
-    "\1\50\11\0\1\10\3\0\1\10\1\0\3\10\1\0"+
-    "\10\10\1\51\3\10\11\0\1\10\3\0\1\10\1\0"+
-    "\3\10\1\0\7\10\1\52\4\10\11\0\1\10\3\0"+
-    "\1\10\1\0\3\10\1\0\5\10\1\53\6\10\11\0"+
-    "\1\10\3\0\1\10\1\0\3\10\1\0\4\10\1\54"+
-    "\7\10\11\0\1\10\3\0\1\10\1\0\3\10\1\0"+
-    "\4\10\1\55\7\10\11\0\1\10\3\0\1\10\1\0"+
-    "\3\10\1\0\6\10\1\56\5\10\11\0\1\10\3\0"+
-    "\1\10\1\0\3\10\1\0\11\10\1\57\2\10\11\0"+
-    "\1\10\3\0\1\10\1\0\1\60\2\10\1\0\14\10"+
-    "\11\0\1\10\3\0\1\10\1\0\3\10\1\0\10\10"+
-    "\1\61\3\10\6\0";
+    "\1\3\1\4\1\3\1\5\1\6\1\7\1\10\1\11"+
+    "\1\6\1\12\1\6\1\13\1\6\1\14\1\6\1\15"+
+    "\1\6\1\16\2\6\1\17\2\6\1\20\1\21\1\22"+
+    "\1\23\1\24\1\25\1\26\1\12\1\0\5\27\1\30"+
+    "\21\27\2\0\7\27\43\0\1\31\1\32\1\0\3\31"+
+    "\1\33\15\31\14\0\1\5\1\6\1\0\3\6\1\0"+
+    "\15\6\14\0\2\6\1\0\3\6\1\0\15\6\14\0"+
+    "\2\6\1\0\1\6\1\34\1\6\1\0\15\6\14\0"+
+    "\2\6\1\0\3\6\1\0\7\6\1\35\5\6\14\0"+
+    "\2\6\1\0\3\6\1\0\2\6\1\36\12\6\14\0"+
+    "\2\6\1\0\3\6\1\0\10\6\1\37\4\6\14\0"+
+    "\2\6\1\0\1\6\1\40\1\6\1\0\15\6\14\0"+
+    "\2\6\1\0\1\41\2\6\1\0\15\6\14\0\2\6"+
+    "\1\0\1\6\1\42\1\6\1\0\15\6\41\0\1\21"+
+    "\7\0\5\27\1\0\21\27\2\0\7\27\2\0\1\43"+
+    "\2\32\1\0\3\32\1\0\15\32\13\0\1\44\2\32"+
+    "\1\0\3\32\1\0\15\32\13\0\1\43\40\0\2\6"+
+    "\1\0\1\6\1\45\1\6\1\0\15\6\14\0\2\6"+
+    "\1\0\3\6\1\0\4\6\1\46\10\6\14\0\2\6"+
+    "\1\0\3\6\1\0\3\6\1\47\11\6\14\0\2\6"+
+    "\1\0\3\6\1\0\7\6\1\50\5\6\14\0\2\6"+
+    "\1\0\3\6\1\0\10\6\1\51\4\6\14\0\2\6"+
+    "\1\0\3\6\1\0\3\6\1\52\11\6\14\0\2\6"+
+    "\1\0\3\6\1\0\4\6\1\53\10\6\14\0\2\6"+
+    "\1\0\2\6\1\54\1\0\15\6\14\0\2\6\1\0"+
+    "\3\6\1\0\3\6\1\55\11\6\14\0\2\6\1\0"+
+    "\3\6\1\0\4\6\1\56\10\6\14\0\2\6\1\0"+
+    "\3\6\1\0\13\6\1\57\1\6\14\0\2\6\1\0"+
+    "\3\6\1\0\4\6\1\60\10\6\14\0\2\6\1\0"+
+    "\3\6\1\0\10\6\1\61\4\6\14\0\2\6\1\0"+
+    "\1\6\1\62\1\6\1\0\15\6\14\0\2\6\1\0"+
+    "\1\6\1\63\1\6\1\0\15\6\14\0\2\6\1\0"+
+    "\3\6\1\0\5\6\1\64\7\6\14\0\2\6\1\0"+
+    "\3\6\1\0\4\6\1\65\10\6\14\0\2\6\1\0"+
+    "\3\6\1\0\3\6\1\66\11\6\14\0\2\6\1\0"+
+    "\3\6\1\0\4\6\1\67\10\6\14\0\2\6\1\0"+
+    "\3\6\1\0\10\6\1\70\4\6\14\0\2\6\1\0"+
+    "\3\6\1\0\6\6\1\71\6\6\14\0\2\6\1\0"+
+    "\3\6\1\0\10\6\1\72\4\6\14\0\2\6\1\0"+
+    "\3\6\1\0\11\6\1\73\3\6\14\0\2\6\1\0"+
+    "\1\74\2\6\1\0\15\6\14\0\2\6\1\0\3\6"+
+    "\1\0\13\6\1\75\1\6\14\0\2\6\1\0\3\6"+
+    "\1\0\10\6\1\76\4\6\14\0\2\6\1\0\3\6"+
+    "\1\0\14\6\1\77\11\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1023];
+    int [] result = new int[1440];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -193,11 +201,11 @@ class TALexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\1\11\2\1\1\11\2\1\1\11\1\1\1\11"+
-    "\4\1\5\11\1\1\1\11\3\0\5\1\2\11\21\1";
+    "\2\0\1\11\3\1\1\11\2\1\1\11\6\1\6\11"+
+    "\1\1\1\11\3\0\7\1\2\11\33\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[49];
+    int [] result = new int[63];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -304,7 +312,7 @@ class TALexer {
     char [] map = new char[0x10000];
     int i = 0;  /* index in packed string  */
     int j = 0;  /* index in unpacked array */
-    while (i < 108) {
+    while (i < 112) {
       int  count = packed.charAt(i++);
       char value = packed.charAt(i++);
       do map[j++] = value; while (--count > 0);
@@ -596,91 +604,99 @@ class TALexer {
         case 1: 
           { System.err.println("Unexpected "+ yytext());
           }
-        case 23: break;
+        case 25: break;
         case 2: 
           { yyparser.yylval = new TAParserVal(Integer.parseInt(yytext())); return TAParser.NUM;
           }
-        case 24: break;
+        case 26: break;
         case 3: 
-          { yyline++;
-          }
-        case 25: break;
-        case 4: 
           { yyparser.yylval = new TAParserVal(yytext()); return TAParser.WORD;
           }
-        case 26: break;
-        case 5: 
+        case 27: break;
+        case 4: 
           { yybegin(STR); str = "";
           }
-        case 27: break;
-        case 6: 
+        case 28: break;
+        case 5: 
           { 
           }
-        case 28: break;
+        case 29: break;
+        case 6: 
+          { yyline++;
+          }
+        case 30: break;
         case 7: 
           { return '{';
           }
-        case 29: break;
+        case 31: break;
         case 8: 
           { return '}';
           }
-        case 30: break;
+        case 32: break;
         case 9: 
           { return '(';
           }
-        case 31: break;
+        case 33: break;
         case 10: 
           { return ')';
           }
-        case 32: break;
+        case 34: break;
         case 11: 
           { return ',';
           }
-        case 33: break;
+        case 35: break;
         case 12: 
           { str = yytext();
           }
-        case 34: break;
+        case 36: break;
         case 13: 
           { yyparser.yylval = new TAParserVal(str); yybegin(YYINITIAL); return TAParser.STRING;
           }
-        case 35: break;
+        case 37: break;
         case 14: 
           { yyparser.yylval = new TAParserVal(yytext().charAt(1)); return TAParser.CASE;
           }
-        case 36: break;
+        case 38: break;
         case 15: 
           { yyparser.yylval = new TAParserVal(yytext().substring(1, yytext().length()-1)); return TAParser.ID;
           }
-        case 37: break;
+        case 39: break;
         case 16: 
           { return TAParser.ROOM;
           }
-        case 38: break;
+        case 40: break;
         case 17: 
           { yyparser.yylval = new TAParserVal(2); return TAParser.METHOD;
           }
-        case 39: break;
+        case 41: break;
         case 18: 
           { yyparser.yylval = new TAParserVal(3); return TAParser.METHOD;
           }
-        case 40: break;
+        case 42: break;
         case 19: 
           { yyparser.yylval = new TAParserVal(0); return TAParser.METHOD;
           }
-        case 41: break;
-        case 20: 
-          { return TAParser.SWITCH;
-          }
-        case 42: break;
-        case 21: 
-          { return TAParser.SWITCHR;
-          }
         case 43: break;
-        case 22: 
-          { yyparser.yylval = new TAParserVal(1); return TAParser.METHOD;
+        case 20: 
+          { yyparser.yylval = new TAParserVal(5); return TAParser.METHOD;
           }
         case 44: break;
+        case 21: 
+          { return TAParser.SWITCH;
+          }
+        case 45: break;
+        case 22: 
+          { return TAParser.SWITCHR;
+          }
+        case 46: break;
+        case 23: 
+          { yyparser.yylval = new TAParserVal(1); return TAParser.METHOD;
+          }
+        case 47: break;
+        case 24: 
+          { yyparser.yylval = new TAParserVal(4); return TAParser.METHOD;
+          }
+        case 48: break;
         default: 
           if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
             zzAtEOF = true;

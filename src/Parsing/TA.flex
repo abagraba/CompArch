@@ -31,23 +31,24 @@ package Parsing;
 ID			=	\[{WORD}\]
 
 NUM			=	[0-9]+
-L			=	.
 WORD		=	[A-Za-z0-9_]+
 
 STRING		=	[^\n\r\"]+
 
 ROOM 		= 	room
 
-VAL				=	[0-9a-zA-Z ]
+VAL			=	[0-9a-zA-Z ]
 
 SWITCH		=	switch
 SWITCHR		=	switchr
-CASE			=	\[{VAL}\]
+CASE		=	\[{VAL}\]
 
 PRINT		=	print
-PRINTLN	=	println
-JUMP		=	jump
+PRINTLN		=	println
+GOTO		=	goto
 INPUT		=	input
+CONTINUE	=	continue
+OPTION		=	option
 
 NL			=   (\r\n|[\n\r]) 
 
@@ -58,13 +59,14 @@ NL			=   (\r\n|[\n\r])
 	{ROOM}		{ return TAParser.ROOM; }
 	{SWITCH}	{ return TAParser.SWITCH; }
 	{SWITCHR}	{ return TAParser.SWITCHR; }
+	{CASE}		{ yyparser.yylval = new TAParserVal(yytext().charAt(1)); return TAParser.CASE; }
 
 	{PRINT}		{ yyparser.yylval = new TAParserVal(0); return TAParser.METHOD; }
-	{PRINTLN}		{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }
-	{JUMP}		{ yyparser.yylval = new TAParserVal(2); return TAParser.METHOD; }
+	{PRINTLN}	{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }
+	{GOTO}		{ yyparser.yylval = new TAParserVal(2); return TAParser.METHOD; }
 	{INPUT}		{ yyparser.yylval = new TAParserVal(3); return TAParser.METHOD; }
-
-	{CASE}		{ yyparser.yylval = new TAParserVal(yytext().charAt(1)); return TAParser.CASE; }
+	{CONTINUE}	{ yyparser.yylval = new TAParserVal(4); return TAParser.METHOD; }
+	{OPTION}	{ yyparser.yylval = new TAParserVal(5); return TAParser.METHOD; }
 
 	[{]			{ return '{'; }
 	[}]			{ return '}'; }

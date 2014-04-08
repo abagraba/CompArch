@@ -1,16 +1,26 @@
 package Engine;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 
 public class StringAllocator {
 
-	private static HashMap<String, String>	labels	= new HashMap<String, String>();
-	private static int						label	= 0;
+	private static LinkedHashMap<String, String>	labels	= new LinkedHashMap<String, String>();
+	private static int								label	= 0;
 
 	static {
 		allocate("\\n");
+		allocate("[1]	");
+		allocate("[2]	");
+		allocate("[3]	");
+		allocate("[4]	");
+		allocate("[5]	");
+		allocate("[6]	");
+		allocate("[7]	");
+		allocate("[8]	");
+		allocate("[9]	");
+		allocate("Press space to continue...\\n");
 		allocate("ERROR!!!");
 	}
 

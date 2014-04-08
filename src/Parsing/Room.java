@@ -29,7 +29,20 @@ public class Room extends Entry {
 
 	@Override
 	public void codeGen(int indent) {
-		Output.print("");
+		int t = 1 + (name.length() - 3) / 4;
+		int l = (20 - t) / 2;
+		int r = 20 - t - l;
+
+		String data = "####";
+		for (int i = 0; i < l; i++)
+			data += '\t';
+		data += name;
+		for (int i = 0; i < r; i++)
+			data += '\t';
+		data += "####";
+		Output.print("########################################################################################");
+		Output.print(data);
+		Output.print("########################################################################################");
 		Output.print(name + ':');
 		for (Entry e : entries)
 			e.codeGen(indent + 1);

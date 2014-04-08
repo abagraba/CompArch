@@ -11,13 +11,14 @@ public abstract class Entry {
 
 	public void codeGen() {
 		Output.print(".data");
-		Output.print("input:");
-		Output.print("	.space	1");
+		Output.print("########################################################################################\n####							String Allocation									####\n########################################################################################");
 		Output.print(StringAllocator.generateMIPSData());
+		Output.print("########################################################################################\n####								Jump Tables										####\n########################################################################################");
 		Output.print(JumpAllocator.generateMIPSData());
 		Output.print(".text");
 		Output.print(".globl	main");
 		codeGen(-1);
+		Output.print("########################################################################################\n####									ERROR										####\n########################################################################################");
 		Output.print("error:");
 		SyscallAllocator.call(4, "string1");
 	}
