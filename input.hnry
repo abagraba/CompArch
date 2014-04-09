@@ -1,0 +1,43 @@
+room main{
+
+	println("You open your eyes.")
+	println("You appear to be in a large forest.")
+	println("You have no idea where you are.")
+	println()
+	continue()
+	goto(start)
+
+}
+
+room start{
+
+	println("You see a large tree with a large wooden door embedded in the roots.")
+	println("You also see a small path meandering into the distance.")
+	println()
+	option(1, "Open the door.")
+	option(2, "Wander down the path")
+	
+	input(2)
+	switchr{
+		[1]
+			println("You open the door. It is very dark.")
+		[2]
+			println("You wander down the path. It is very dark.")
+	}
+	goto(grue)
+}
+
+room grue{
+
+	println("You can barely see a thing...")
+	continue()
+	println("You get eaten by a grue.")
+	println()
+
+}
+
+room bottomless{
+	println("You fall into the bottomless pit.")
+	continue()
+	goto(bottomless)
+}
