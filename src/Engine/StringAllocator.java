@@ -22,6 +22,33 @@ public class StringAllocator {
 		allocate("[9]	");
 		allocate("Press space to continue...\\n");
 		allocate("ERROR!!!");
+		allocate("[a]	");
+		allocate("[b]	");
+		allocate("[c]	");
+		allocate("[d]	");
+		allocate("[e]	");
+		allocate("[f]	");
+		allocate("[g]	");
+		allocate("[h]	");
+		allocate("[i]	");
+		allocate("[j]	");
+		allocate("[k]	");
+		allocate("[l]	");
+		allocate("[m]	");
+		allocate("[n]	");
+		allocate("[o]	");
+		allocate("[p]	");
+		allocate("[q]	");
+		allocate("[r]	");
+		allocate("[s]	");
+		allocate("[t]	");
+		allocate("[u]	");
+		allocate("[v]	");
+		allocate("[w]	");
+		allocate("[x]	");
+		allocate("[y]	");
+		allocate("[z]	");
+		allocate("[ ]	");
 	}
 
 	public static String allocate(String string) {

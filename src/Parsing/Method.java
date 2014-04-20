@@ -11,14 +11,15 @@ import Testing.Output;
 
 public class Method extends Entry {
 
-	protected static final int		print	= 0;
-	protected static final int		println	= 1;
-	protected static final int		jump	= 2;
-	protected static final int		input	= 3;
-	protected static final int		cont	= 4;
-	protected static final int		option	= 5;
+	protected static final int		print		= 0;
+	protected static final int		println		= 1;
+	protected static final int		jump		= 2;
+	protected static final int		input		= 3;
+	protected static final int		cont		= 4;
+	protected static final int		option		= 5;
+	protected static final int		checkpoint	= 6;
 
-	private static final String[]	name	= new String[] { "Print", "Println", "Jump", "Input", "Continue" };
+	private static final String[]	name		= new String[] { "Print", "Println", "Jump", "Input", "Continue", "Checkpoint" };
 
 	protected int					i;
 	protected String[]				args;
@@ -114,10 +115,24 @@ public class Method extends Entry {
 					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 2. Received " + n + ".");
 					return;
 				}
-				int ib = Integer.parseInt(args[0]);
-				SyscallAllocator.call(4, "string" + ib);
-				SyscallAllocator.call(4, args[1]);
-				SyscallAllocator.call(4, "string0");
+				int ib = -1;
+				try {
+					ib = Integer.parseInt(args[0]);
+				}
+				catch (NumberFormatException e) {}
+				if (ib != -1) {
+					SyscallAllocator.call(4, "string" + ib);
+					SyscallAllocator.call(4, args[1]);
+					SyscallAllocator.call(4, "string0");
+				}
+				else {
+					SyscallAllocator.call(4, StringAllocator.allocate("[" + args[0] + "]	"));
+					SyscallAllocator.call(4, args[1]);
+					SyscallAllocator.call(4, "string0");
+				}
+				break;
+			case checkpoint:
+				Output.print(args[0] + ':');
 				break;
 			default:
 				Output.print("		#Invalid method call.");

@@ -15,15 +15,19 @@ room start{
 	println("You also see a small path meandering into the distance.")
 	println()
 	option(1, "Open the door.")
-	option(2, "Wander down the path")
+	option(2, "Wander down the path.")
+	option(r, "Run around aimlessly.")
 	
 	input(2)
-	switchr{
-		[1]
+	switch{
+		['1']
 			println("You open the door. It is very dark.")
-		[2]
+			goto(grue)
+		['2']
 			println("You wander down the path. It is very dark.")
+			goto(grue)
 	}
+	println("You run around aimlessly.")
 	goto(grue)
 }
 
@@ -37,7 +41,10 @@ room grue{
 }
 
 room bottomless{
-	println("You fall into the bottomless pit.")
+	println("You fall into a bottomless pit.")
 	continue()
-	goto(bottomless)
+	checkpoint(fall)
+	println("You continue falling...")
+	continue()
+	goto(fall)
 }

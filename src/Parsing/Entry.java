@@ -20,7 +20,7 @@ public abstract class Entry {
 		codeGen(-1);
 		Output.print("########################################################################################\n####									ERROR										####\n########################################################################################");
 		Output.print("error:");
-		SyscallAllocator.call(4, "string1");
+		SyscallAllocator.call(4, "string11");
 	}
 
 	public void debug() {
