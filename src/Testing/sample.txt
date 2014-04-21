@@ -4,6 +4,7 @@ room main{
 	println("You appear to be in a large forest.")
 	println("You have no idea where you are.")
 	println()
+	set(confused)
 	continue()
 	goto(start)
 
@@ -18,6 +19,7 @@ room start{
 	option(2, "Wander down the path.")
 	option(r, "Run around aimlessly.")
 	
+	unset(confused)
 	input(2)
 	switch{
 		['1']

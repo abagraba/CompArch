@@ -50,6 +50,8 @@ INPUT		=	input
 CONTINUE	=	continue
 OPTION		=	option
 CHECKPOINT	=	checkpoint
+SET			=	set
+UNSET		=	unset
 
 NL			=   (\r\n|[\n\r]) 
 
@@ -69,6 +71,8 @@ NL			=   (\r\n|[\n\r])
 	{CONTINUE}		{ yyparser.yylval = new TAParserVal(4); return TAParser.METHOD; }
 	{OPTION}		{ yyparser.yylval = new TAParserVal(5); return TAParser.METHOD; }
 	{CHECKPOINT}	{ yyparser.yylval = new TAParserVal(6); return TAParser.METHOD; }
+	{SET}			{ yyparser.yylval = new TAParserVal(7); return TAParser.METHOD; }
+	{UNSET}			{ yyparser.yylval = new TAParserVal(8); return TAParser.METHOD; }
 
 	[{]				{ return '{'; }
 	[}]				{ return '}'; }

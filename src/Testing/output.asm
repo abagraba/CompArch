@@ -138,6 +138,7 @@ main:
 		syscall
 		la	$a0, string0
 		syscall
+		ori		$s4, $s4, 1
 		la	$a0, string10
 		syscall
 		addi	$t9, $0, 32
@@ -186,6 +187,7 @@ start:
 		syscall
 		la	$a0, string0
 		syscall
+		andi	$s4, $s4, 2147483646
 input1:
 		li		$t0, 2					# $t0 = Upper Bound of input.
 		li	$v0, 12

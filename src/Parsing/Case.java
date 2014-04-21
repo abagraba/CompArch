@@ -18,7 +18,7 @@ public class Case extends Entry {
 		this.commands = commands;
 		Entry e = commands.get(commands.size() - 1);
 		if (e instanceof Method)
-			def = ((Method) e).i != Method.jump;
+			def = ((Method) e).method != Method.jump;
 	}
 
 	@Override

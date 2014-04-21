@@ -2,6 +2,8 @@ package Parsing;
 
 import java.util.LinkedList;
 
+import Engine.Boolean;
+import Engine.BooleanAllocator;
 import Engine.InputAllocator;
 import Engine.StringAllocator;
 import Engine.SyscallAllocator;
@@ -11,6 +13,10 @@ import Testing.Output;
 
 public class Method extends Entry {
 
+	protected static final int		TRUE		= 0;
+	protected static final int		FALSE		= 1;
+	protected static final int		END			= 2;
+
 	protected static final int		print		= 0;
 	protected static final int		println		= 1;
 	protected static final int		jump		= 2;
@@ -18,14 +24,18 @@ public class Method extends Entry {
 	protected static final int		cont		= 4;
 	protected static final int		option		= 5;
 	protected static final int		checkpoint	= 6;
+	protected static final int		set			= 7;
+	protected static final int		unset		= 8;
+	protected static final int		checktrue	= 9;
 
-	private static final String[]	name		= new String[] { "Print", "Println", "Jump", "Input", "Continue", "Checkpoint" };
+	private static final String[]	methodName	= new String[] { "Print", "Println", "Jump", "Input", "Continue", "Checkpoint", "Set", "Unset",
+			"Check"							};
 
-	protected int					i;
+	protected int					method;
 	protected String[]				args;
 
-	public Method(int i, LinkedList<String> args) {
-		this.i = i;
+	public Method(int method, LinkedList<String> args) {
+		this.method = method;
 		this.args = args.toArray(new String[args.size()]);
 	}
 
@@ -34,7 +44,7 @@ public class Method extends Entry {
 		String t = "";
 		for (int i = 0; i < indent; i++)
 			t += '\t';
-		Output.print(t + "Call [" + name[i] + "] with args:");
+		Output.print(t + "Call [" + methodName[method] + "] with args:");
 		t += '\t';
 		for (String s : args)
 			Output.print(t + '[' + StringAllocator.interpret(s) + ']');
@@ -43,41 +53,37 @@ public class Method extends Entry {
 	@Override
 	public void codeGen(int arg) {
 		int n = args.length;
-		switch (i) {
+		Boolean b;
+		int i;
+		String[] sa;
+
+		switch (method) {
 			case print:
-				if (n != 1) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+				if (argCheck(n, 1))
 					return;
-				}
 				SyscallAllocator.call(4, args[0]);
 				break;
 			case println:
-				if (n != 1 && n != 0) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 0 or 1. Received " + n + ".");
+				if (argCheck(n, 0, 1))
 					return;
-				}
 				if (n == 1)
 					SyscallAllocator.call(4, args[0]);
 				SyscallAllocator.call(4, "string0");
 				break;
 			case jump:
-				if (n != 1) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+				if (argCheck(n, 1))
 					return;
-				}
 				Output.print("		j		" + args[0]);
 				break;
 			case input:
-				if (n != 1) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 1. Received " + n + ".");
+				if (argCheck(n, 1))
 					return;
-				}
-				int ia = Integer.parseInt(args[0]);
+				i = Integer.parseInt(args[0]);
 				String l = InputAllocator.allocate();
 				String lx = l + "_x";
 				String le = l + "_end";
 				Output.print(l + ':');
-				Output.print("		li		$t0, " + ia + "					# $t0 = Upper Bound of input."); // $t0 = Upper Bound
+				Output.print("		li		$t0, " + i + "					# $t0 = Upper Bound of input."); // $t0 = Upper Bound
 				SyscallAllocator.call(12);
 				Output.print("		add		$s1, $v0, $0			# s1 = input");
 				Output.print("		addi	$v0, $v0, -49"); // '1' = 0
@@ -85,7 +91,6 @@ public class Method extends Entry {
 				Output.print("		sub		$t1, $v0, $t0");
 				Output.print("		bgez	$t1, " + lx + "			# Jump to " + lx + " if $v0 > max Input.");
 				Output.print("		add		$s0, $t0, $t1			# $s0 = [0, maxInput - 1]");
-				// Output.print("		addi	$s0, $s0, -1			# $s0 = [0, maxInput - 1]");
 				Output.print("		j		" + le);
 				Output.print(lx + ':');
 				Output.print("		add		$s0, $t0, $0			# $s0 = maxInput");
@@ -93,10 +98,8 @@ public class Method extends Entry {
 				SyscallAllocator.call(4, "string0");
 				break;
 			case cont:
-				if (n != 0) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 0. Received " + n + ".");
+				if (argCheck(n, 0))
 					return;
-				}
 				String label = InputAllocator.allocate();
 				String labelend = label + "_end";
 				SyscallAllocator.call(4, "string10");
@@ -111,17 +114,15 @@ public class Method extends Entry {
 				SyscallAllocator.call(4, "string0");
 				break;
 			case option:
-				if (n != 2) {
-					Output.print("		#" + name[i] + " received invalid number of arguments. Expected 2. Received " + n + ".");
+				if (argCheck(n, 2))
 					return;
-				}
-				int ib = -1;
+				i = -1;
 				try {
-					ib = Integer.parseInt(args[0]);
+					i = Integer.parseInt(args[0]);
 				}
 				catch (NumberFormatException e) {}
-				if (ib != -1) {
-					SyscallAllocator.call(4, "string" + ib);
+				if (i != -1) {
+					SyscallAllocator.call(4, "string" + i);
 					SyscallAllocator.call(4, args[1]);
 					SyscallAllocator.call(4, "string0");
 				}
@@ -132,11 +133,56 @@ public class Method extends Entry {
 				}
 				break;
 			case checkpoint:
+				if (argCheck(n, 1))
+					return;
 				Output.print(args[0] + ':');
 				break;
+			case set:
+				if (argCheck(n, 1))
+					return;
+				b = BooleanAllocator.interpret(args[0]);
+				Output.print("		ori		" + b.register + ", " + b.register + ", " + b.mask());
+				break;
+			case unset:
+				if (argCheck(n, 1))
+					return;
+				b = BooleanAllocator.interpret(args[0]);
+				Output.print("		andi	" + b.register + ", " + b.register + ", " + (Integer.MAX_VALUE - b.mask()));
+				break;
+			case checktrue:
+				if (argCheck(n, 1))
+					return;
+				b = BooleanAllocator.interpret(args[0]);
+				sa = b.labelSet();
+				Output.print("		andi	$t0, " + b.register + ", " + b.mask());
+				Output.print("		beq		$t0, $0, " + sa[FALSE]);
+				// TRUE SHIT
+				Output.print("		j		" + sa[END]);
+				Output.print(sa[FALSE] + ":");
+				// FALSE SHIT
+				Output.print(sa[END] + ":");
+				break;
 			default:
+				System.err.println("Unrecognized Method.");
 				Output.print("		#Invalid method call.");
 		}
 
 	}
+
+	private boolean argCheck(int n, int c) {
+		if (n != c) {
+			Output.print("		#" + methodName[method] + " received invalid number of arguments. Expected " + c + ". Received " + n + ".");
+			return true;
+		}
+		return false;
+	}
+
+	private boolean argCheck(int n, int c, int d) {
+		if (n < c || n > d) {
+			Output.print("		#" + methodName[method] + " received invalid number of arguments. Expected " + c + " to " + d + ". Received " + n + ".");
+			return true;
+		}
+		return false;
+	}
+
 }
