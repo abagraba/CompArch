@@ -1,15 +1,14 @@
 package Engine;
 
-
-
-
 public class Boolean {
 
+	public final String	name;
 	public final String	register;
 	public final int	bit;
 	private int			check	= 0;
 
-	public Boolean(String register, int bit) {
+	public Boolean(String name, String register, int bit) {
+		this.name = name;
 		this.register = register;
 		this.bit = bit;
 	}
@@ -19,7 +18,7 @@ public class Boolean {
 	}
 
 	public String[] labelSet() {
-		return new String[] { register + bit + "true" + check, register + bit + "false" + check, register + bit + "end" + check++ };
+		return new String[] { name + '_' + bit + "true" + check, name + '_' + bit + "false" + check, name + '_' + bit + "end" + check++ };
 	}
 
 }

@@ -13,10 +13,6 @@ import Testing.Output;
 
 public class Method extends Entry {
 
-	protected static final int		TRUE		= 0;
-	protected static final int		FALSE		= 1;
-	protected static final int		END			= 2;
-
 	protected static final int		print		= 0;
 	protected static final int		println		= 1;
 	protected static final int		jump		= 2;
@@ -26,10 +22,10 @@ public class Method extends Entry {
 	protected static final int		checkpoint	= 6;
 	protected static final int		set			= 7;
 	protected static final int		unset		= 8;
-	protected static final int		checktrue	= 9;
+	protected static final int		ifelse		= 9;
 
 	private static final String[]	methodName	= new String[] { "Print", "Println", "Jump", "Input", "Continue", "Checkpoint", "Set", "Unset",
-			"Check"							};
+			"IfElse"							};
 
 	protected int					method;
 	protected String[]				args;
@@ -55,7 +51,6 @@ public class Method extends Entry {
 		int n = args.length;
 		Boolean b;
 		int i;
-		String[] sa;
 
 		switch (method) {
 			case print:
@@ -149,19 +144,7 @@ public class Method extends Entry {
 				b = BooleanAllocator.interpret(args[0]);
 				Output.print("		andi	" + b.register + ", " + b.register + ", " + (Integer.MAX_VALUE - b.mask()));
 				break;
-			case checktrue:
-				if (argCheck(n, 1))
-					return;
-				b = BooleanAllocator.interpret(args[0]);
-				sa = b.labelSet();
-				Output.print("		andi	$t0, " + b.register + ", " + b.mask());
-				Output.print("		beq		$t0, $0, " + sa[FALSE]);
-				// TRUE SHIT
-				Output.print("		j		" + sa[END]);
-				Output.print(sa[FALSE] + ":");
-				// FALSE SHIT
-				Output.print(sa[END] + ":");
-				break;
+
 			default:
 				System.err.println("Unrecognized Method.");
 				Output.print("		#Invalid method call.");

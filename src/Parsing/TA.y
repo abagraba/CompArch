@@ -18,6 +18,9 @@ import Engine.*;
 %token	WORD
 %token	METHOD
 
+%token	IF
+%token	ELSE
+
 %token	SWITCH
 %token	SWITCHR
 
@@ -54,10 +57,25 @@ commands	:										{ $$.obj = new LinkedList<Entry>(); }
 			
 command		:	switch								{ $$.obj = $1.obj; }
 			|	method								{ $$.obj = $1.obj; }
+			|	conditional							{ $$.obj = $1.obj; }
 			;
 			
 method		:	METHOD '(' args ')'					{ $$.obj = new Method($1.ival, (LinkedList<String>) $3.obj); }
 			|	METHOD '(' ')'						{ $$.obj = new Method($1.ival, new LinkedList<String>()); }
+			;
+			
+conditional	:	if									{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, null, $1.ival == 1); }
+			|	if else								{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, (LinkedList<Entry>)$2.obj, $1.ival == 1); }
+			;
+			
+if			:	IF '(' WORD ')' '{' commands '}'		{ $$.sval =  $3.sval; $$.ival = 1; $$.obj = $6.obj; }
+			|	IF '(' WORD ')' command 				{ $$.sval =  $3.sval; $$.ival = 1; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
+			|	IF '(' '!' WORD ')' '{' commands '}'	{ $$.sval =  $3.sval; $$.ival = 0; $$.obj = $6.obj; }
+			|	IF '(' '!' WORD ')' command 			{ $$.sval =  $3.sval; $$.ival = 0; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
+			;
+			
+else		:	ELSE '{' commands '}'				{ $$.obj = $3.obj; }
+			|	ELSE command 						{ $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$2.obj); }
 			;
 			
 args		:	arg									{ LinkedList<String> args = new LinkedList<String>(); args.add($1.sval); $$.obj = args; }

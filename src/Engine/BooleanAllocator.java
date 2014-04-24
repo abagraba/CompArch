@@ -18,12 +18,12 @@ public class BooleanAllocator {
 
 	public static Boolean interpret(String name) {
 		if (!booleans.containsKey(name))
-			booleans.put(name, newBoolean());
+			booleans.put(name, newBoolean(name));
 		return booleans.get(name);
 	}
 
-	private static Boolean newBoolean() {
-		Boolean b = new Boolean(reg.getFirst(), bit++);
+	private static Boolean newBoolean(String name) {
+		Boolean b = new Boolean(name, reg.getFirst(), bit++);
 		if (bit == 32) {
 			reg.removeFirst();
 			bit = 0;

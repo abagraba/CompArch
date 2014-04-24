@@ -87,28 +87,32 @@ string40:
 string41:
 	.asciiz "You have no idea where you are."
 string42:
-	.asciiz "You see a large tree with a large wooden door embedded in the roots."
+	.asciiz "YOU ARE CONFUSED."
 string43:
-	.asciiz "You also see a small path meandering into the distance."
+	.asciiz "You see a large tree with a large wooden door embedded in the roots."
 string44:
-	.asciiz "Open the door."
+	.asciiz "You also see a small path meandering into the distance."
 string45:
-	.asciiz "Wander down the path."
+	.asciiz "Open the door."
 string46:
-	.asciiz "Run around aimlessly."
+	.asciiz "Wander down the path."
 string47:
-	.asciiz "You open the door. It is very dark."
+	.asciiz "Run around aimlessly."
 string48:
-	.asciiz "You wander down the path. It is very dark."
+	.asciiz "YOU ARE NOT CONFUSED."
 string49:
-	.asciiz "You run around aimlessly."
+	.asciiz "You open the door. It is very dark."
 string50:
-	.asciiz "You can barely see a thing..."
+	.asciiz "You wander down the path. It is very dark."
 string51:
-	.asciiz "You get eaten by a grue."
+	.asciiz "You run around aimlessly."
 string52:
-	.asciiz "You fall into a bottomless pit."
+	.asciiz "You can barely see a thing..."
 string53:
+	.asciiz "You get eaten by a grue."
+string54:
+	.asciiz "You fall into a bottomless pit."
+string55:
 	.asciiz "You continue falling..."
 
 ########################################################################################
@@ -139,6 +143,13 @@ main:
 		la	$a0, string0
 		syscall
 		ori		$s4, $s4, 1
+		andi	$t0, $s4, 1
+		beq		$t0, $0, confused_0end0
+		la	$a0, string42
+		syscall
+		la	$a0, string0
+		syscall
+confused_0end0:
 		la	$a0, string10
 		syscall
 		addi	$t9, $0, 32
@@ -159,11 +170,11 @@ input0_end:
 ####									start										####
 ########################################################################################
 start:
-		la	$a0, string42
+		la	$a0, string43
 		syscall
 		la	$a0, string0
 		syscall
-		la	$a0, string43
+		la	$a0, string44
 		syscall
 		la	$a0, string0
 		syscall
@@ -171,23 +182,36 @@ start:
 		syscall
 		la	$a0, string1
 		syscall
-		la	$a0, string44
+		la	$a0, string45
 		syscall
 		la	$a0, string0
 		syscall
 		la	$a0, string2
 		syscall
-		la	$a0, string45
+		la	$a0, string46
 		syscall
 		la	$a0, string0
 		syscall
 		la	$a0, string29
 		syscall
-		la	$a0, string46
+		la	$a0, string47
 		syscall
 		la	$a0, string0
 		syscall
 		andi	$s4, $s4, 2147483646
+		andi	$t0, $s4, 1
+		beq		$t0, $0, confused_0false1
+		la	$a0, string42
+		syscall
+		la	$a0, string0
+		syscall
+		j		confused_0end1
+confused_0false1:
+		la	$a0, string48
+		syscall
+		la	$a0, string0
+		syscall
+confused_0end1:
 input1:
 		li		$t0, 2					# $t0 = Upper Bound of input.
 		li	$v0, 12
@@ -209,13 +233,13 @@ input1_end:
 		lw		$t0, jt0($t0)
 		jr		$t0
 jc0_1:
-		la	$a0, string47
+		la	$a0, string49
 		syscall
 		la	$a0, string0
 		syscall
 		j		grue
 jc0_2:
-		la	$a0, string48
+		la	$a0, string50
 		syscall
 		la	$a0, string0
 		syscall
@@ -224,7 +248,7 @@ jr0:
 		j		je0
 je0:
 		li	$v0, 4
-		la	$a0, string49
+		la	$a0, string51
 		syscall
 		la	$a0, string0
 		syscall
@@ -233,7 +257,7 @@ je0:
 ####									grue										####
 ########################################################################################
 grue:
-		la	$a0, string50
+		la	$a0, string52
 		syscall
 		la	$a0, string0
 		syscall
@@ -252,7 +276,7 @@ input2_end:
 		li	$v0, 4
 		la	$a0, string0
 		syscall
-		la	$a0, string51
+		la	$a0, string53
 		syscall
 		la	$a0, string0
 		syscall
@@ -262,7 +286,7 @@ input2_end:
 ####									bottomless									####
 ########################################################################################
 bottomless:
-		la	$a0, string52
+		la	$a0, string54
 		syscall
 		la	$a0, string0
 		syscall
@@ -282,7 +306,7 @@ input3_end:
 		la	$a0, string0
 		syscall
 fall:
-		la	$a0, string53
+		la	$a0, string55
 		syscall
 		la	$a0, string0
 		syscall

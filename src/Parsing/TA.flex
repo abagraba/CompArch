@@ -43,6 +43,9 @@ SWITCH		=	switch
 SWITCHR		=	switchr
 CASE		=	\[{VAL}\]
 
+IF			=	if
+ELSE		=	else
+
 PRINT		=	print
 PRINTLN		=	println
 GOTO		=	goto
@@ -63,6 +66,9 @@ NL			=   (\r\n|[\n\r])
 	{SWITCH}		{ return TAParser.SWITCH; }
 	{SWITCHR}		{ return TAParser.SWITCHR; }
 	{CASE}			{ yyparser.yylval = new TAParserVal(yytext().charAt(2)); return TAParser.CASE; }
+
+	{IF}			{ return TAParser.IF; }
+	{ELSE}			{ return TAParser.ELSE; }
 
 	{PRINT}			{ yyparser.yylval = new TAParserVal(0); return TAParser.METHOD; }
 	{PRINTLN}		{ yyparser.yylval = new TAParserVal(1); return TAParser.METHOD; }

@@ -5,6 +5,8 @@ room main{
 	println("You have no idea where you are.")
 	println()
 	set(confused)
+	if (confused)
+		println("YOU ARE CONFUSED.")
 	continue()
 	goto(start)
 
@@ -20,6 +22,10 @@ room start{
 	option(r, "Run around aimlessly.")
 	
 	unset(confused)
+	if (confused)
+		println("YOU ARE CONFUSED.")
+	else
+		println("YOU ARE NOT CONFUSED.")
 	input(2)
 	switch{
 		['1']
