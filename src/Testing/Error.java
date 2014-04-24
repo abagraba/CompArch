@@ -5,15 +5,15 @@ import java.io.IOException;
 
 
 
-public class Output {
+public class Error {
 
-	public static BufferedWriter	out	= null;
+	public static BufferedWriter	err	= null;
 
 	public static void print(String s) {
-		if (out != null)
+		if (err != null)
 			try {
-				out.append(s);
-				out.newLine();
+				err.append(s);
+				err.newLine();
 			}
 			catch (IOException e) {
 				e.printStackTrace();
@@ -24,7 +24,7 @@ public class Output {
 
 	public static void flush() {
 		try {
-			out.flush();
+			err.flush();
 		}
 		catch (IOException e) {
 			e.printStackTrace();

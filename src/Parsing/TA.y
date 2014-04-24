@@ -108,7 +108,8 @@ arg			:	STRING								{ $$.sval = StringAllocator.allocate($1.sval); }
 
 
 	public void yyerror (String error) {
-		System.err.println ("Error: [" + (lexer.line() + 1 )+ ':' + lexer.yytext() + "] :" + error);
+		Error.print("Error: [" + (lexer.line() + 1 )+ ':' + lexer.yytext() + "] :" + error);
+		Error.flush();
 	}
 
 

@@ -21,7 +21,7 @@ public class ParseTest {
 			e1.printStackTrace();
 		}
 		try {
-			TAParser ta = new TAParser(new FileReader(new File("src/Testing/sample.txt")));
+			TAParser ta = new TAParser(new FileReader(new File("src/Testing/input.hnry")));
 			ta.run();
 		}
 		catch (FileNotFoundException e) {

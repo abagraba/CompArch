@@ -15,21 +15,22 @@ public class Parse {
 	public static void main(String[] args) {
 		File in = new File("input.hnry");
 		File out = new File("output.asm");
-
-		System.out.println(in.getAbsolutePath());
-		System.out.println(out.getAbsolutePath());
-
-		if (!in.exists()) {
-			System.err.println("Input does not exist.");
-			return;
-		}
+		File err = new File("log.txt");
 
 		try {
 			Output.out = new BufferedWriter(new FileWriter(out));
+			Error.err = new BufferedWriter(new FileWriter(err));
 		}
-		catch (IOException e1) {
-			e1.printStackTrace();
+		catch (IOException e) {
+			e.printStackTrace();
 		}
+
+		if (!in.exists()) {
+			Error.print("[input.hnry] does not exist.");
+			Error.flush();
+			return;
+		}
+
 		try {
 			TAParser ta = new TAParser(new FileReader(in));
 			ta.run();
@@ -37,12 +38,8 @@ public class Parse {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
-		try {
-			if (Output.out != null)
-				Output.out.flush();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Output.flush();
+		Error.print("Compilation complete");
+		Error.flush();
 	}
 }

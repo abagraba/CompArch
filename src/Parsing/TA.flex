@@ -1,5 +1,5 @@
 package Parsing;
-
+import java.io.Reader;
 %%
 
 %class TALexer
@@ -8,21 +8,37 @@ package Parsing;
 
 
 %{
-  private TAParser yyparser;
-  private String str;
+	private TAParser yyparser;
+	private String str;
 
-  public TALexer(java.io.Reader r, TAParser yyparser) {
-    this(r);
-    this.yyparser = yyparser;
-  }
+	public TALexer(Reader r, TAParser yyparser) {
+		this(r);
+		this.yyparser = yyparser;
+	}
   
-  public int line(){
-  	return yyline;
-  }
+		public TALexer(InputStream[] r, TAParser yyparser) {
+		this(new InputStreamReader(getReader(r)));
+		this.yyparser = yyparser;
+	}
+
+	private static InputStream getReader(InputStream[] rs) {
+		if (rs.length == 0)
+			return null;
+		if (rs.length == 1)
+			return rs[0];
+		InputStream is = new SequenceInputStream(rs[0], rs[1]);
+		for (int i = 2; i < rs.length; i++)
+			is = new SequenceInputStream(is, rs[i]);
+		return is;
+	}
+
+	public int line(){
+		return yyline;
+	}
   
-  public int pos(){
-  	return yychar;
-  }
+	public int pos(){
+		return yychar;
+	}
   
   
 %}
