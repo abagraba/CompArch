@@ -11,6 +11,9 @@ public class JumpAllocator {
 	private static ArrayList<Integer>	tables	= new ArrayList<Integer>();
 	private static int					label	= 0;
 
+	/**
+	 * Allocates unique labels for use in generating jump tables.
+	 */
 	public static int allocate(int jumps) {
 		tables.add(jumps);
 		return label++;

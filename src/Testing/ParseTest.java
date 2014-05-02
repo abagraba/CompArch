@@ -12,8 +12,8 @@ import Parsing.TAParser;
 public class ParseTest {
 
 	private static File[]	poemSource	= new File[] { new File("src/Testing/poetic.hnry") };
-	private static File[]	baseSource	= new File[] { new File("src/Testing/original.hnry"), new File("src/Testing/lab.hnry"),
-			new File("src/Testing/mystery.hnry") };
+	private static File[]	baseSource	= new File[] { new File("src/Testing/main.hnry"), new File("src/Testing/lab.hnry"),
+			new File("src/Testing/hnry.hnry"), new File("src/Testing/romance.hnry"), new File("src/Testing/mystery.hnry") };
 
 	public static void main(String[] args) {
 		try {
@@ -22,7 +22,7 @@ public class ParseTest {
 		catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		TAParser ta = new TAParser(poemSource);
+		TAParser ta = new TAParser(baseSource);
 		ta.run();
 		try {
 			if (Output.out != null)

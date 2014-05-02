@@ -1,0 +1,579 @@
+room dIntro{
+	println()
+	println("You find a mirror and decide to look in it.")
+	println("This brings up an interesting philosophical question: Who are you?")
+	goto(dMirror)	
+}
+
+room dMirror{
+	option(1, "Fox")
+	option(2, "Goat")
+	option(3, "Tribble")
+	
+	input(3)
+	switch{
+		['1']
+			goto(dFoxIntro)
+		['2']
+			goto(dGoatIntro)
+		['3']
+			goto(dTribbleIntro)
+	}
+}
+
+room dFoxIntro{
+	println("You wander down a path and see a dog.  It goes woof.")
+	continue()
+	println("You continue wandering and then you see a cat.  It goes meow.")
+	continue()
+	println("Then you come across a bird who goes tweet, followed by a mouse who goes squeek.")
+	continue()
+	println("After these encounters you see a cow, a frog, an elephant, a duck, a fish, and a seal")
+	println("who go moo, croak, toot, quack, blub, and ow ow ow, respectively.")
+	continue()
+	println("However, they all await your response!")
+	println("What do you say?")
+
+	option(1, "Ring-ding-ding-ding-dingeringeding!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Gering-ding-ding-ding-dingeringeding!")
+			println("Gering-ding-ding-ding-dingeringeding!")
+			continue()
+			goto(dFox2)
+	}
+}
+
+room dFox2{
+	println("What do you say?")
+	
+	option(1, "Wa-pa-pa-pa-pa-pa-pow!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Wa-pa-pa-pa-pa-pa-pow!")
+			println("Wa-pa-pa-pa-pa-pa-pow!")
+			continue()
+			goto(dFox3)
+	}
+}
+
+
+room dFox3{
+	println("Continuing the conversation, what would you like to say now?")
+	
+	option(1, "Hatee-hatee-hatee-ho!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Hatee-hatee-hatee-ho!")
+			println("Hatee-hatee-hatee-ho!")
+			continue()
+			goto(dFox4)
+	}
+}
+
+room dFox4{
+	println("Following up with")
+	
+	option(1, "Joff-tchoff-tchoff-tchoffo-tchoffo-tchoff!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Joff-tchoff-tchoff-tchoffo-tchoffo-tchoff!")
+			println("Joff-tchoff-tchoff-tchoffo-tchoffo-tchoff!")
+			continue()
+			goto(dFox5)
+	}
+}
+
+room dFox5{
+	println("With your big blue eyes, and your pointy nose, you chase mice and dig holes.")
+	continue()
+	println("With your tiny paws, you run up a hill.  Suddenly you stand still.")
+	continue()
+	println("Your fur is a beautiful red, like an angel in disguise.")
+	continue()
+	println("But if you happen to meet a friendly horse, how will you communicate?")
+
+	option(1, "By mo-o-o-o-orse")
+	
+	input(1)
+	switchr{
+		['1']
+			println("mo-o-o-o-orse")
+			println("mo-o-o-o-orse")
+			continue()
+			goto(dFox6)
+	}
+}
+
+room dFox6{
+	println("How will you speak to that horse?")
+	continue()
+	println("What do you say?")
+
+	option(1, "Jacha-chacha-chacha-chow!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Jacha-chacha-chacha-chow!")
+			println("Jacha-chacha-chacha-chow!")
+			continue()
+			goto(dFox7)
+	}
+}
+
+room dFox7{
+	println("What do you say now?")
+
+	option(1, "Fraka-kaka-kaka-kaka-kow!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("Fraka-kaka-kaka-kaka-kow!")
+			println("Fraka-kaka-kaka-kaka-kow!")
+			continue()
+			goto(dFox8)
+	}
+}
+
+room dFox8{
+	println("What do you say now?")
+
+	option(1, "A-hee-ahee ha-hee!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("A-hee-ahee ha-hee!")
+			println("A-hee-ahee ha-hee!")
+			continue()
+			goto(dFox9)
+	}
+}
+
+room dFox9{
+	println("What do you say now?")
+
+	option(1, "A-oo-oo-oo-ooo!")
+	
+	input(1)
+	switchr{
+		['1']
+			println("A-oo-oo-oo-ooo!")
+			continue()
+			goto(dFox10)
+	}
+}
+
+room dFox10{
+	println("Somewhere deep in the woods you have a secret.  An ancient mystery.")
+	println("Somewhere you are hiding.")
+	continue()
+	println("What is your sound?")
+	continue()
+	println("Will we ever know?")
+	continue()
+	println("Or will it always be a mystery?")
+	println("What do you say?")
+
+	option(1, "A-bubu-duh-bubu-dwee-dum a-bubu-duh-bubu-dwee-dum")
+	
+	input(1)
+	switchr{
+		['1']
+			println("A-bubu-duh-bubu-dwee-dum")
+			continue()
+			println("A-bubu-duh-bubu-dwee-dum. a-bubu-duh-bubu-dwee-dum.")
+			goto(dFox11)
+	}
+}
+
+room dFox11{
+	println("What is your sound?")
+	println("All the creatures want to know.")
+	
+	option(1, "Bay-buh-day bum-bum bay-dum.")
+	
+	input(1)
+	switchr{
+		['1']
+			goto(dFoxEnd)
+	}
+}
+
+room dFoxEnd{
+	println()
+	println("All of the animals look at you strangely, as if you had just randomly sung a song.")
+	continue()
+	println("No matter. You understand yourself a little better now. You know your sound!")
+	continue()
+	
+	set(FoxDone)
+	goto(dEnd)
+}
+
+room dGoatIntro{
+	println("Suddenly the world seems full of possibilities!")
+	continue()
+	println("You realize you can do so much!")
+	continue()
+	println("You can lick or head-butt just about anything!")
+	continue()
+	println("What do you choose to do?")
+
+	option(1, "Nap")
+	option(2, "Explore")
+
+	input(2)
+	switchr{
+		['1']
+			println("You take a nap.")
+			continue()
+			goto(dGoatIntroAfterNap1)
+		['2']
+			println("You continue onwards.")
+			println()
+			goto(dGoatTree)
+	}
+	
+}
+
+room dGoatIntroAfterNap1{
+	println("The world still seems full of possibilities.")
+
+	option(1, "Nap")
+	option(2, "Explore")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You take a nap.")
+			continue()
+			goto(dGoatIntroAfterNap2)
+		['2']
+			println("You continue onwards.")
+			continue()
+			goto(dGoatTree)
+	}
+}
+
+room dGoatIntroAfterNap2{
+	println("The world still seems full of possibilities I guess.")
+
+	option(1, "Nap")
+	option(2, "Explore")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You take a nap.")
+			continue()
+			goto(dGoatIntroAfterNap3)
+		['2']
+			println("You continue onwards.")
+			continue()
+			goto(dGoatTree)
+	}
+}
+
+room dGoatIntroAfterNap3{
+	println("Maybe not that many possibilities..")
+
+	option(1, "Explore")
+	
+	input(1)
+	switchr{
+		['1']
+			println("You continue onwards.")
+			continue()
+			println("Finally.")
+			continue()
+			goto(dGoatTree)
+	}
+}
+
+room dGoatTree{
+	println("You now come accross a tree. It looks delicious.")
+	
+	option(1, "Lick the tree")
+	option(2, "Sit under the tree")
+	option(3, "Move on")
+	option(4, "Gaze at its beauty")
+
+	input(4)
+	switchr{
+		['1']	
+			println("You lick the tree.")
+			goto(dGoatGrue)
+		['2']	
+			println("You lick the tree.")
+			goto(dGoatGrue)
+		['3']	
+			println("You lick the tree.")
+			goto(dGoatGrue)
+		['4']
+			println("You lick the tree.")
+			println()
+			println("After licking the tree, you see a grue.")
+			continue()
+			goto(dGoatGrue)
+	}
+}
+
+room dGoatGrue{
+	
+	option(1, "Lick the grue")
+	option(2, "Eat the grue")
+	option(3, "Head-butt the grue")
+
+	input(3)
+	switchr{
+		['1']	
+			println("You lick the grue. It tries to eat you. It is not effective because you are a goat.")
+			goto(dGoatGrue)
+		['2']	
+			println("You eat the grue. It is super effective because you are a goat.")
+			goto(dGoatFence)
+		['3']	
+			println("You head-butt the grue.  It explodes.  Lick the remains?")
+			goto(dGoatGrueRemains)
+	}
+}
+
+room dGoatGrueRemains{
+	option(1, "Yes")
+	option(2, "No")
+
+	input(2)
+	switchr{
+		['1']
+			println("You lick its remains. Delicious.")
+			goto(dGoatEnd)
+		['2']
+			println("You lick its remains. Disgusting. Why would you do that?")
+			continue()
+			println("You horrible person.")
+			continue()
+			goto(dGoatFence)
+	}
+}
+
+room dGoatFence{
+	println("You decide to continue wandering along.")
+	continue()
+	println("You come up to a fence.  It appears you are trapped in here!")
+	println("What will you ever do?")
+
+	option(1, "Head-butt")
+	option(2, "Lick")
+	option(3, "Take a nap")
+
+	input(3)
+	switchr{
+		['1']
+			println("You head-butt the fence. It explodes. Problem solved!")
+			goto(dGoatEnd)
+		['2']
+			println("You lick the fence.")
+			continue()
+			println("Then, using your super strong tongue, you rip the fence down.")
+			println("Problem solved!")
+		['3']
+			println("You take a nap.")
+			continue()
+			println("You wake up to find the fence gone. Problem solved!")
+			goto(dGoatOutOfFence)
+	}	
+}
+
+room dGoatOutOfFence{
+	println("Outside the fence the world looks exactly the same, just with no fence, yet the possibilities seem infinite!")
+	println("Therefore,")
+	
+	option(1, "Take a nap")
+	option(2, "Take a nap")
+	option(3, "Take a nap")
+
+	input(3)
+	switchr{
+		['1']
+			println("You take a nap.")
+			continue()
+			goto(dGoatEnd)
+		['2']
+			println("You take a nap.")
+			continue()
+			goto(dGoatEnd)
+		['3']
+			println("You take a nap.")
+			continue()
+			goto(dGoatEnd)
+	}
+}
+
+room dGoatEnd{
+	println("At least you understand yourself a little bit better now.")
+	continue()
+	println("You have learned about life, spontaneity, destruction, love, courage, honor, compassion, freedom, and humility.")
+	continue()
+	println("Being a goat has taught you a lot.")
+	continue()
+	println("What a valuable experience.")
+	continue()
+	println("Absolutely life-changing.")
+	continue()
+	println("or maybe not.")
+
+	set(GoatDone)
+	goto(dEnd)
+
+}
+
+room dTribbleIntro{
+	println("coo coo purr purr.")
+	continue()
+	println("coo purr coo purr coo.")
+	continue()
+	println("purr coo purr.")
+	
+	option(1, "Soothe")
+	option(2, "Purr")
+	option(3, "Coo")
+	option(4, "Breed")
+
+	input(4)
+	switchr{
+		['1']
+			println("You have a soothing effect on nearby creatures.")
+			goto(dTribbleIntro)
+		['2']
+			println("Purrrrr")
+			goto(dTribbleIntro)
+		['3']
+			println("Cooooo")
+			goto(dTribbleIntro)
+		['4']
+			println("You now have 10 tribbles!")
+			goto(dMoreTribbles1)
+	}
+}
+
+room dMoreTribbles1{
+	println("purr coo purr.")
+	
+	option(1, "Soothe")
+	option(2, "Purr")
+	option(3, "Coo")
+	option(4, "Breed")
+
+	input(4)
+	switchr{
+		['1']
+			println("You have a soothing effect on nearby creatures.")
+			goto(dMoreTribbles1)
+		['2']
+			println("Purrrrr")
+			goto(dMoreTribbles1)
+		['3']
+			println("Cooooo")
+			goto(dMoreTribbles1)
+		['4']
+			println("You now have 100 tribbles!")
+			goto(dMoreTribbles2)
+	}
+}
+
+room dMoreTribbles2{
+	println("purr coo purr.")
+	
+	option(1, "Soothe")
+	option(2, "Purr")
+	option(3, "Coo")
+	option(4, "Breed")
+
+	input(4)
+	switchr{
+		['1']
+			println("You have a soothing effect on nearby creatures.")
+			goto(dMoreTribbles2)
+		['2']
+			println("Purrrrr")
+			goto(dMoreTribbles2)
+		['3']
+			println("Cooooo")
+			goto(dMoreTribbles2)
+		['4']
+			println("You now have 1000 tribbles!")
+			continue()
+			goto(dMoreTribbles3)
+	}
+}
+
+room dMoreTribbles3{
+	println("3 days have gone by...")
+	
+
+	println("What would you like to do")
+	
+	option(1, "Breed")
+
+	input(1)
+	switchr{
+		['1']
+			println("There are now 1,771,561 tribbles.")
+			continue()
+			println("Assuming 1 tribble multiplying with an average litter of 10 producing a new generation of tribbles every 12 hours over a period of 3 days.")
+			continue()
+			println("And allowing for the amount of grain consumed and the volume of the storage compartment.")
+			continue()
+			goto(dTribbleEnd)
+	}
+}
+
+room dTribbleEnd{
+	println("Being a tribble has made you understand yourself a little bit better.")
+	println("You have learned about relaxation, purring, cooing, and other bodily functions tribbles do especially well.")
+
+	set(TribbleDone)
+	goto(dEnd)
+}
+
+room dEnd{
+	if(FoxDone){
+		if(GoatDone){
+			if(TribbleDone){
+				println("Suddenly you wake up.  You realize you have been dreaming all along and breath a sigh of relief")
+				continue()
+				println("But you did think you learned something about yourself.  You just aren't sure what it means.")
+				continue()
+				println("You get up and go to the bathroom sink to splash water in your face.")
+				continue()
+				println("You look into the mirror and see yourself.")
+				continue()
+				println("You are the grue!")
+				goto(gameover)
+			}
+			else{
+				println("You make your way back to the mirror.")
+				goto(dMirror)
+			}
+		}
+		else{
+			println("You make your way back to the mirror.")
+			goto(dMirror)
+		}
+	}
+	else{
+		println("You make your way back to the mirror.")
+		goto(dMirror)
+	}
+}

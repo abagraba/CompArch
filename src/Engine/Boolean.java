@@ -7,6 +7,10 @@ public class Boolean {
 	public final int	bit;
 	private int			check	= 0;
 
+	/**
+	 * Data structure that stores boolean information and contains some convenience funtions.
+	 */
+
 	public Boolean(String name, String register, int bit) {
 		this.name = name;
 		this.register = register;

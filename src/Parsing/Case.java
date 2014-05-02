@@ -6,6 +6,9 @@ import Testing.Output;
 
 
 
+/**
+ * Class that handles cases of a switch block.
+ */
 public class Case extends Entry {
 	private boolean				def			= true;
 	boolean						num			= true;

@@ -6,6 +6,10 @@ import Testing.Output;
 
 
 
+/**
+ * Keeps track of syscall state in order to reduce repetetive code involved in syscalls.
+ */
+
 public class SyscallAllocator {
 
 	private static Stack<Syscall>	stack	= new Stack<Syscall>();
@@ -80,10 +84,16 @@ public class SyscallAllocator {
 		Output.print("		syscall");
 	}
 
+	/**
+	 * Used to store state, for when handling conditionals.
+	 */
 	public static void push() {
 		stack.push(new Syscall(vv0, aa0, aa1, aa2));
 	}
 
+	/**
+	 * Used to restore state, for when handling conditionals.
+	 */
 	public static void pop() {
 		Syscall s = stack.pop();
 		vv0 = s.v0;
@@ -92,6 +102,9 @@ public class SyscallAllocator {
 		aa2 = s.a2;
 	}
 
+	/**
+	 * Invalidate the stored states. Used when states are no longer valid due to jumps and or conditionals.
+	 */
 	public static void invalidate() {
 		vv0 = -1;
 		aa0 = -1;

@@ -4,6 +4,9 @@ import Testing.Output;
 
 
 
+/**
+ * Entry that inserts raw MIPS code.
+ */
 public class Raw extends Entry {
 
 	String	s;

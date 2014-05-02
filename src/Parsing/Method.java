@@ -12,6 +12,9 @@ import Testing.Output;
 
 
 
+/**
+ * Entry that controls the contents of all the functions supported.
+ */
 public class Method extends Entry {
 
 	protected static final int		print		= 0;
@@ -54,11 +57,14 @@ public class Method extends Entry {
 		int i;
 
 		switch (method) {
+		// Print the specified text.
 			case print:
 				if (argCheck(n, 1))
 					return;
 				SyscallAllocator.call(4, args[0]);
 				break;
+			// Print the specified text, followed by a new line.
+			// Print a new line if no text specified.
 			case println:
 				if (argCheck(n, 0, 1))
 					return;
@@ -66,6 +72,8 @@ public class Method extends Entry {
 					SyscallAllocator.call(4, args[0]);
 				SyscallAllocator.call(4, "string0");
 				break;
+			// Print the specified int.
+			// If none is specified, print the value in $a0
 			case printint:
 				if (argCheck(n, 0, 1))
 					return;
@@ -76,11 +84,14 @@ public class Method extends Entry {
 				else
 					SyscallAllocator.call(1);
 				break;
+			// Go directly to specified room/checkpoint.
 			case jump:
 				if (argCheck(n, 1))
 					return;
 				Output.print("		j		" + args[0]);
 				break;
+			// Poll for character input. Int arg specifies valid jump table bounds. If input is in bounds, $s0 contains
+			// the target jump table address. Otherwise it directs to the miscellaneous input test.
 			case input:
 				if (argCheck(n, 1))
 					return;
@@ -103,6 +114,7 @@ public class Method extends Entry {
 				Output.print(le + ':');
 				SyscallAllocator.call(4, "string0");
 				break;
+			// Convenience function to pause and prompt the user to press the space bar.
 			case cont:
 				if (argCheck(n, 0))
 					return;
@@ -120,6 +132,7 @@ public class Method extends Entry {
 				SyscallAllocator.invalidate();
 				SyscallAllocator.call(4, "string0");
 				break;
+			// Convenience function to print out a nicely formatted note to the user on what keys to press.
 			case option:
 				if (argCheck(n, 2))
 					return;
@@ -139,24 +152,26 @@ public class Method extends Entry {
 					SyscallAllocator.call(4, "string0");
 				}
 				break;
+			// Creates a checkpoint that can be jumped to later.
 			case checkpoint:
 				if (argCheck(n, 1))
 					return;
 				Output.print(args[0] + ':');
 				break;
+			// Set the specified boolean to true.
 			case set:
 				if (argCheck(n, 1))
 					return;
 				b = BooleanAllocator.interpret(args[0]);
 				Output.print("		ori		" + b.register + ", " + b.register + ", " + b.mask());
 				break;
+			// Set the specified boolean to false.
 			case unset:
 				if (argCheck(n, 1))
 					return;
 				b = BooleanAllocator.interpret(args[0]);
 				Output.print("		andi	" + b.register + ", " + b.register + ", " + (Integer.MAX_VALUE - b.mask()));
 				break;
-
 			default:
 				System.err.println("Unrecognized Method.");
 				Output.print("		#Invalid method call.");
@@ -164,6 +179,9 @@ public class Method extends Entry {
 
 	}
 
+	/**
+	 * Check the number of arguments passed to the method.
+	 */
 	private boolean argCheck(int n, int c) {
 		if (n != c) {
 			Output.print("		#" + methodName[method] + " received invalid number of arguments. Expected " + c + ". Received " + n + ".");

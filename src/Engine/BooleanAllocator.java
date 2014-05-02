@@ -5,6 +5,9 @@ import java.util.LinkedList;
 
 
 
+/**
+ * Allocates unused bits in the $s registers for usage as veriables. Can allocate up to 128 booleans.
+ */
 public class BooleanAllocator {
 
 	private static HashMap<String, Boolean>	booleans	= new HashMap<String, Boolean>();

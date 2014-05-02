@@ -1,0 +1,105 @@
+room main{
+
+
+	goto(start)
+
+}
+
+room start{
+
+	println("You open your eyes.")
+	println("You appear to be in a large forest.")
+	println("You have no idea where you are.")
+	println()
+	continue()
+	println("You see a large tree with a large wooden door embedded in the roots.")
+	println("You also see a small path meandering into the distance.")
+	println()
+	option(1, "Open the door.")
+	option(2, "Wander down the path.")
+	option(3, "Take a nap.")
+	option(4, "Scream in terror.")
+	option(r, "Run around aimlessly.")
+	
+	input(4)
+	switch{
+		['1']
+			println("You open the door and wander through.")
+			println("It slams itself shut behind you and vanishes.")
+			println()
+			goto(dIntro)
+		['2']
+			println("You wander down the path. It is very dark.")
+			goto(path)
+			
+		['3']
+			println("It was getting dark and I was to tired to care where I was. I closed my eyes and took a nap...")
+			println("...")
+			println("...")
+			println("...")
+			println("...")
+			println("...")
+			println("...")
+			println("...")
+			goto(mystStart)
+		['4']
+			println("You scream in terror!")
+			println("You also pass out.")
+			continue()
+			println("When you come to things seem slightly different.")
+			goto(terrorbegins)
+		['v']
+			goto(vault)
+	}
+	println("You run around aimlessly.")
+	goto(grue)
+}
+
+
+room path{
+	println("The path seems to branch in two at this point.")
+	option(1, "Take the branch.")
+	option(2, "Continue onwards.")
+
+		input(2)
+		switch{
+			['1']
+				goto(labenter)
+			['2']
+				goto(romstart)
+		}
+}
+
+
+room grue{
+
+	println("You can barely see a thing...")
+	continue()
+	println("You get eaten by a grue.")
+	println()
+	goto(gameover)
+}
+
+room bottomless{
+	println("You fall into a bottomless pit.")
+	continue()
+	checkpoint(fall)
+	println("You continue falling...")
+	continue()
+	goto(fall)
+}
+
+room gameover{
+
+	println()
+
+	println("Press space to start over...")
+	
+	input(0)
+	switchr{
+		[' ']		println()
+			goto(main)
+	}
+	
+}
+

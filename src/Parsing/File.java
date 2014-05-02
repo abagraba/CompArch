@@ -4,6 +4,9 @@ import java.util.LinkedList;
 
 
 
+/**
+ * Top level Entry that holds all Rooms
+ */
 public class File extends Entry {
 
 	private LinkedList<Room>	rooms	= new LinkedList<Room>();

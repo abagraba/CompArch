@@ -1,0 +1,421 @@
+
+room romstart{
+        println("You continue  walking down the path.")
+        println("You see a fair maiden in the distance.")
+        println("'HELP!' she screams as a monster leaps from the dense greenery.")
+        println()
+        println("What do you want to do?")
+        option(1, "Help her")
+        option(2, "Run away")
+        option(3, "Hide")
+        
+        input(3)
+        switchr{
+        	['1']
+        		println("You draw your sword and run towards her.")
+        goto(romsave)
+        	
+        	['2']
+        		println("You run as fast as you can, this isn't what you wanted anyway")
+        goto(romstart)
+        	['3']
+        		println("You hide in a nearby bush, the monster snarls and grabs the maiden.  The monster proceeds into the forest leaving a trail of footprints behind him")
+        goto(footprints)
+        }}
+
+room romsave{
+	println("You reach the monster.  It is giant with large dagger like fangs protruding from its muzzle.")
+        println(" It looms over you.  Its hot noxious breath covers your body in an intensely moist dew.")  
+        println("Its body is covered in a thick shaggy fur, which is damp with blood.")
+        println()
+        println("What do you want to do?")
+        option(1, "Slash your sword")
+        option(2, "Get in a defensive stance")
+        option(3, "Run away")
+        
+        input(3)
+        switchr{
+        	['1']
+        		println("You slash your sword at the monster's torso. It howls in pain.") 
+				println("It begins to attack by raising its massive paw.")
+				goto(romattack)
+        	['2']
+				println( "You get low to the ground shielding your body.")
+				println(" The monster begins to attack by raising its massive paw.")
+				println("You realize that you positioned your body wrong")
+				println("The monsters paw hits your body and you get knocked out")
+				continue()
+				println("When you awaken you decide to go back to where you were")
+				println("You are lucky to be alive")
+				goto(romstart)
+        	['3']
+				println("You run as fast as you can, this isn't what you wanted anyway.")
+				println("Luckily, the fair maiden seems to have escaped anyway")
+				goto(romstart)
+		}
+}
+        room romattack{
+        println("The monster strikes its paw at you")
+        println("You get hit and the pain is excruciating, but you see an opening")
+        println("You can either go for its now open chest or attack the monsters legs thus crippiling it")
+        println("What do you want to do?")
+        option(1, "Go for the torso, you wounded it previously earlier")
+        option(2, "Cripple it, so you and the maiden can run away")
+        option(3, "Do nothing")
+        
+        input(3)
+        switchr{
+        	['1']
+        		println("You slash the torso of the monster.  The beast falls limp to your side.") 
+        println(" It slowly blinks at you the life fading from its body.")
+        goto(romkill)
+        	['2']
+        		println( "The monster falls over.  Screaming in pain and properly incapacitated.")
+		println("You look around to find where the maiden ran off to")
+        goto(rommaiden)
+        	['3']
+        		println("You do nothing.  The beast stares at you.")  
+        println("For a brief moment you think that perhaps the beast isn't evil after all.....")
+        println("However it then proceeds to eat you......you are now dead")
+        goto(gameover)
+        }}
+        room rommaiden{
+        println("the maiden is sitting by a tree a few meters over")
+        println("What do you want to do?")
+        option(1, "Ask her if she needs any assistance")
+        option(2, "Leave her alone")
+        
+        input(2)
+        switchr{
+        	['1']
+        		goto(romask)
+        	['2']
+        		goto(romstart)
+        }}
+        room romkill{
+        println("You are relieved to have that little ordeal over")
+        println("You look around and see that the maiden is sitting by a tree a few meters over")
+        println("What do you want to do?")
+        option(1, "Ask her if she needs any assistance")
+        option(2, "Leave her alone")
+        
+        input(2)
+        switchr{
+        	['1']
+        		goto(romask)
+        	['2']
+        		goto(romstart)
+        }}
+        
+        room romask{
+        println("As you approach her she appears to have a large leg wound.  She is currently unconscious but breathing") 
+        println("You think to yourself, she was lucky that you got there when you did ")
+        println("You have medicine that can cure her leg, but in the commotion you forgot which flasks do what")
+        println("You try to wake her, but she cannot get up.  If you don't act quickly she will die from the infection")
+        println("What do you want to do?")
+        option(1, "Use the blue potion")
+        option(2, "Use the red potion")
+        
+        input(2)
+        switchr{
+        	['1']
+        println("You apply the blue potion to her leg.  Her leg appears to be reacting to the potion, the gash is slowly closing up.") 
+        goto(romblue)
+        	
+        	['2']
+        println("You apply the red potion to her leg.  ")
+        println("Her leg appears to be reacting to the potion, the gash is slowly closing up.")
+        println("The forest suddenly becomes very dark.")
+        println(" Is this just taking too long or are you losing track of time.")
+        goto(romgrue)
+        }}
+        room romgrue{
+        println("You decide to sleep , since the potion seems to be healing the lady.  You awaken to a shrill cry") 
+        println("It is dark and you look around, but see nothing in the pitch black darkness ")
+        println("What do you want to do?")
+        option(1, "Go back to sleep")
+        option(2, "Ask who is there")
+        input(2)
+        switchr{
+        	['1']
+        println("You fall back to sleep after a short amount of time.")  
+        println("However you open your eyes for a second.")
+        println(" A large grue wearing the maidens clothing is going to eat you..........")
+		println("You have been eaten by a grue") 
+        goto(gameover)
+        	['2']
+        println( "You ask and get a mumbled response. ")
+        println(" You look in that direction and see a grue wearing the maiden's clothing")
+        goto(romgrueromance)
+        }}
+        
+        room romgrueromance{
+        println("You realize you are mere moments from death.  What will you do?")
+        option(1,"Attack the grue")
+        option(2, "Plead to the grue for your life")
+        option(3, "Compliment the grue on how pretty it is")
+        
+        input(3)
+        switchr{
+        	['1']
+        println("You attempt to reach your sword, but it isn't where you left it.")
+        println("You look back in horror to see the grue standing behind you.........")
+        println()
+        println("You have been eaten by a grue") 
+        goto(gameover)
+        	['2']
+        		println( "You plead for your life, but the grue is not persuaded.....")
+				println("you have been eaten by a grue")
+				goto(gameover)
+        	['3']
+        		println("The grue looks at you and you look into the grue's eyes.")
+        		println("In that moment time stops and you realize you have found your true love")
+        		println("You embrace each other.")
+        		println("You and the grue live happily ever after")
+				goto(gameover)
+        }}
+        
+        room romblue{
+        println("The blue potion has healed her.  You begin to converse with her when she opens her eyes.")
+        println("Her name is Arya and she was kidnapped by the evil beast you has just slain.")
+        println("She says that she is a princess with a lot of gold and that she can repay you for saving her.")
+        option(1,"Trust her and follow her to her castle ")
+        option(2, "Tell her saving her was enough reward and leave")
+        
+        input(2)
+        switchr{
+        	['1']
+        println("You follow her through the damp forest.")  
+        println("The trees seem to get wickeder and more sinister.")
+        println("A large stone castle can be seen in the distance.")
+        goto(romevilcastle)
+        	['2']
+        		println( "She looks very sad and disappointed")
+        println("You however feel like you have avoided certain doom")
+        println("You walk off into the sunset and find shelter for the night")
+        continue()
+        println("3 years pass")
+        println("You always wonder what would have happened if you had followed Arya")
+        println("But at the tavern that you found shelter at you met the love of your life")
+        println("Riches would have been nice, but for some reason you just didn't trust Arya")
+        continue()
+        println("You mention this story to you love, and she looks at you with a horrified expression")
+        println("Arya was a princess who had died many years ago.")
+        println("Some say she was a witch who would eat men to stay youthful forever.")
+        println("But that was merely a rumor made up by villagers.")
+        continue()
+        println("You seem relived to have not have gone, and embrace your love")
+        println("You live happily ever after knowing that you have found true happiness, love")
+        
+        goto(gameover)
+        	
+        }}
+        room romevilcastle{
+        println("You reach the hulking castle. It seems to be very aged and unkept.")
+        println("How could anyone live her, it seems abandoned.")
+        println("You follow her into the castle")
+        continue()
+        println("Once Arya says that she needs to go freshen up")
+        println("You don't think much of this, because she was just kidnapped by a hideous beast")
+        println("Anyone would want to bathe after that nasty thing was touching them")
+        continue()
+        println("While waiting for her you look around the castle")
+        option(1,"Look in the throne room ")
+        option(2, "Look at the basement")
+        
+        input(2)
+        switchr{
+        	['1']
+        println("You look into the throne room.") 
+        println("You see mounds of treasure to the ceiling.")
+        println("A feeling of relief spreads throughout your whole body, she wasn't lying to you")
+        goto(romtreasure)
+        	['2']
+        println( "You look at the dungeons")
+        println("there are piles of dead bodies up to the ceiling")
+        println("You examine the dead bodies")
+        println("There are teeth marks on all the bones")
+        println("However they are small teeth marks, like that of a human, not a beast")
+        continue()
+        println("You turn around to see Arya")
+        println("She is dressed in all red and seems to be chanting an incantation")
+        println("Before you can do anything you realized you are frozen in place")
+        println("You have just been eaten by an evil witch")
+        
+        goto(gameover)
+        	
+        }}
+        room romtreasure{
+        println("You look at the treasure")
+        println("You think about whether you should take some and leave before she gets back")
+        println("Or if you should stay and chat with Arya more")
+        option(1, "leave")
+        option(2, "stay")
+        	
+        
+        
+        input(2)
+        switchr{
+        	['1']
+        println("You stay waiting there for Arya to return")  
+        println("She comes back dressed all in red")
+        println("She begins an incantation....suddenly you are paralyzed.........")
+        println("She begins to morph in to a giant spider, her fangs protruding from her face")
+        println("You have just been eaten by a giant spider")
+        goto(gameover)
+        	['2']
+        println( "You take some treasure and go on your way")
+        println("You wind up at a tavern and meet a beautiful young woman")
+        println("You realize she is the one and you decide to settle down") 
+        continue()
+        println("3 years pass")
+        println("You always wonder what would have happened if you had stayed with Arya")
+        println("You mention this story to you love, and she looks at you with a horrified expression")
+        println("Arya was a princess who had died many years ago.")
+        println("Some say she was a witch who would eat men to stay youthful forever.")
+        println("But that was merely a rumor made up by villagers.")
+        println("The money you got from that adventure kept your family healthy and happy.")
+        println("You live happily ever.")
+		goto(gameover)
+}}
+room footprints{
+		println("You follow the monsters footsteps into the forest.")
+		continue()
+		println("It seems like days, but eventually you reach a small abandoned town")
+        println("You hear screaming in one of the abandoned huts you decide to invesitigate")
+        continue()
+        println("Upon reaching the hut you have to think, should you bust in through the door?")
+        println("Or should you be sneakier to get the surprise on the beast")  
+        println("What do you want to do?")
+        option(1, "Bust through the door")
+        option(2, "Take you time to come up with a plan")
+        
+        input(2)
+        switchr{
+        	['1']
+        println("You bust through the door")
+        println("You see the beast down on the ground it seems to be hurt")
+        println("You didn't expect this to be the case....you stand there bewildered for a moment.")
+        println( "The maiden asks you for her help")
+		goto(rommaidenask)
+		['2']
+		println(" You sneak around to the back of the hut.")
+		println("While this is happening you overhear a conversation")
+		continue()
+		println("'I will get revenge for what you did to my village'-says a deep voice")
+		println("'You may have gotten me this far, but I will not be defeated'-woman's voice")
+		println("Ahhhhhhhhhhhh")
+		goto(rommaidenmoreinfo)
+}}
+room rommaidenask{
+	println("You look at her and then the beast, you seem conflicted")
+	println("You ask her what is going on")
+	continue()
+	println("She tells you that the beast kidnapped her")
+	println("Her name is Arya and she is a princess from a castle not long from here")
+	println("She begs you to slay the beast")
+	option(1, "Slay it")
+    option(2, "Talk to the beast")
+        
+    input(2)
+    switchr{
+        	['1']  
+    println("You slay the beast, it doesn't put up much of a fight")
+    println("But before you can turn around the room gets dark")
+    println("You stumble around falling over everything in your way")
+    println("An evil cry comes out from behind you")
+    println("You hear a mumble of chanting")
+    continue()
+    println("You realize you are paralyzed")
+    println("A large spider descends from the ceiling")
+    println("Its begins to envelope you in its web")
+    println("........You have been eaten by a giant spider")
+    goto(gameover)
+		['2']
+	println("You ask the beast why it kidnapped her")
+	println("It says that Arya ate her entire village many years ago")
+    println(" After she was done devouring the villagers she turned the last one into a beast.")
+    goto(romquickdecision)
+        }}
+room romquickdecision{
+	println("You have mere seconds to act")
+	option(1,"Trust Arya")
+	option(2, "Trust Beast")
+
+	input(2)
+	switchr{
+        ['1']  
+    println("You slay the beast, it doesn't put up much of a fight")
+    println("But before you can turn around the room gets dark")
+    println("You stumble around falling over everything in your way")
+    println("An evil cry comes out from behind you")
+    println("You hear a mumble of chanting")
+    continue()
+    println("You realize you are paralyzed")
+    println("A large spider descends from the ceiling")
+    println("Its begins to envelope you in its web")
+    println("........You have been eaten by a giant spider")
+    goto(gameover)
+
+	['2']
+			println("You throw your sword at Arya catching her unaware")
+			println("She shrieks in pain and then begins to transform back and forth")
+			println("Sometimes she appers to be a beautiful young woman, sometimes an old woman")
+			println("She also sometimes turns into a hideous spider")
+			println("In the end however she falls to the ground.......dead")
+			continue()
+			println("The beast turns into the prettiest woman you have ever seen")
+			println("She thanks you for believing in her")
+			println("Her name was Rose")
+			println("Many years ago Arya became spiteful")
+			println("She was beginning to lose her youth and in response she turned to evil forces")
+			continue()
+			println("She sacrificed her humanity in order to stay young forever")
+			println("In order to do so she had to devour human flesh")
+			println("She was so jealous of Rose that she turned her into a beast rather than eating her")
+			println("Rose says that Arya had a castle a mile away")
+			continue()
+			println("You talk and chat with Rose on the way to the castle")
+			println("You realize you have a lot in common and decide to continue on adventuring with her")
+			println("Once you reach the castle, you help Rose bury all of her fellow villagers bodies")
+			println("People hear about your triumph over the spider and elect you King of the area")
+			continue()
+			println("After many years and a long friendship you and Rose decide to get married")
+			println("You live happily ever after as King and Queen")  
+			goto(gameover)
+}}
+room rommaidenmoreinfo{
+	println("You bust through the back window")
+    println("You see the girl attacking the beast")
+	println("You look at her and then the beast, you seem conflicted")
+	println("You ask her what is going on")
+	continue()
+	println("She tells you that the beast kidnapped her")
+	println("Her name is Arya and she is a princess from a castle not long from here")
+	println("She begs you to slay the beast")
+	option(1, "Slay it")
+    option(2, "Talk to the beast")
+        
+    input(2)
+    switchr{
+        	['1']  
+    println("You slay the beast, it doesn't put up much of a fight")
+    println("But before you can turn around the room gets dark")
+    println("You stumble around falling over everything in your way")
+    println("An evil cry comes out from behind you")
+    println("You hear a mumble of chanting")
+    continue()
+    println("You realize you are paralyzed")
+    println("A large spider descends from the ceiling")
+    println("Its begins to envelope you in its web")
+    println("........You have been eaten by a giant spider")
+    goto(gameover)
+		['2']
+	println("You ask the beast why it kidnapped her")
+	println("It says that Arya ate her entire village many years ago")
+    println(" After she was done devouring the villagers she turned the last one into a beast.")
+    goto(romquickdecision)
+        }}
+		
+	
+

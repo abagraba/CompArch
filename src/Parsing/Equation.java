@@ -5,6 +5,10 @@ import Testing.Output;
 
 
 
+/**
+ * Entry that handles mathematical operations. Deals with equations of the form $reg op int, $reg op $reg, $reg op $reg
+ * op $reg, and $reg op $reg op int
+ */
 public class Equation extends Entry {
 
 	public static final int	eq	= 0;
@@ -54,18 +58,21 @@ public class Equation extends Entry {
 	@Override
 	public void codeGen(int arg) {
 		switch (op) {
+		// Assignment operation
 			case eq:
 				if (src1 == null)
 					Output.print("		addi	" + dest + ", $0, " + isrc);
 				else
 					Output.print("		add		" + dest + ", $0, " + src1);
 				break;
+			// Add operation
 			case inc:
 				if (src1 == null)
 					Output.print("		addi	" + dest + ", " + dest + ", " + isrc);
 				else
 					Output.print("		add		" + dest + ", " + dest + ", " + src1);
 				break;
+			// Subtract operation
 			case dec:
 				if (isrc < 0)
 					isrc *= -1;
@@ -74,6 +81,7 @@ public class Equation extends Entry {
 				else
 					Output.print("		sub		" + dest + ", " + dest + ", " + src1);
 				break;
+			// Equality test
 			case equ:
 				String label = MathAllocator.allocate();
 				String labele = label + "end";
@@ -88,12 +96,14 @@ public class Equation extends Entry {
 				Output.print("		addi	" + dest + ", $0, 1");
 				Output.print(labele + ':');
 				break;
+			// Less than test
 			case lt:
 				if (src2 == null)
 					Output.print("		slti	" + dest + ", " + src1 + ", " + isrc);
 				else
 					Output.print("		slt		" + dest + ", " + src1 + ", " + src2);
 				break;
+			// Greater than test
 			case gt:
 				if (src2 == null) {
 					Output.print("		addi	$1, $0, " + isrc);

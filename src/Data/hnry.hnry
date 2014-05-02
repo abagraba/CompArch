@@ -1,0 +1,545 @@
+room terrorbegins{
+
+	println("You see a large tree with a large steel door embedded in the limbs.")
+	println("You also see a small path meandering into the darkness.")
+	println("the night is dimly lit by wisps.")
+	option(1, "Open the door.")
+	option(2, "Wander down the path")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You open the door. It is very hot.")
+				goto(hot)
+		
+		['2']
+			println("You wander down the path. It is very cold.")
+				goto(cold)
+	}
+}
+room hot{
+
+	println("*****************.")
+	println("*****************.")
+	println()
+	option(1, "*****************.")
+	option(2, "*****************.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("*****************.")
+				goto(lostone)
+		
+		['2']
+			println("*****************.")
+				goto(lostone)
+	}
+}
+room lostone{
+
+	println("*****************.")
+	println("*****************.")
+	println()
+	option(1, "*****************.")
+	option(2, "*****************.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("*****************.")
+				goto(losttwo)
+		
+		['2']
+			println("*****************.")
+				goto(losttwo)
+	}
+}
+room losttwo{
+
+	println("*****************.")
+	println("*****************.")
+	println()
+	option(1, "*****************.")
+	option(2, "*****************.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("*****************.")
+				goto(lostthree)
+		
+		['2']
+			println("*****************.")
+				goto(lostthree)
+	}
+}
+room lostthree{
+
+	println("*****************.")
+	println("*****************.")
+	println("going somewhere?")
+	println("*****************.")
+	option(1, "*****************.")
+	option(2, "*****************.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("*****************.")
+				goto(lostfour)
+		
+		['2']
+			println("*****************.")
+				goto(lostfour)
+	}
+}
+room lostfour{
+
+	println("*****************.")
+	println("*****************.")
+	println("I didn't think so.")
+	println("*****************.")
+	option(1, "*****************.")
+	option(2, "*****************.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("*****************.")
+				goto(lostfive)
+		
+		['2']
+			println("*****************.")
+				goto(lostfive)
+	}
+}
+room lostfive{
+
+	println("You will never make it out, so ill just let you go.")
+	option(1, "continue.")
+	set(doomed)
+	
+	input(1)
+	switchr{
+		['1']
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+			println("*****************.")
+				goto(coldthree)
+	}
+}
+room cold{
+
+	println("You see a large tree with a large glass door embedded in the arms.")
+	println("You also see a small path meandering into the trunk.")
+	println("The sky is dark and empty. The path is lit by wisps")
+	option(1, "Open the door.")
+	option(2, "Wander down the path")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You open the door. It is very dark.")
+				goto(hot)
+		
+		['2']
+			println("You wander down the path. It is very cold.")
+				goto(coldtwo)
+	}
+				
+}
+room coldtwo{
+
+	println("The sky is dark and empty. the night is lit with wisps.")
+	println("You see a large tree with a large stone door embedded in the face.")
+	println("You also see a small path meandering into the trunk.")
+	println("The tree is in agony.")
+	option(1, "Open the door.")
+	
+	input(1)
+	switchr{
+		['1']
+			println("You open the door.")
+
+	}
+				goto(coldthree)
+}
+room coldthree{
+
+	println("You shut the door behind you.")
+	println("Wooden pillars line a stone walkway leading to a throne. Strange writing covers the pillars.")
+	println("Wisps circle above you and shadows dance on the walls.")
+	println("The wisps extinguish.")
+	option(1, "Stand and wait for your eyes to adjust.")
+	option(2, "Go back to the stone door.")
+	option(3, "Get down and look for somewhere to hide.")
+	option(4, "Assume there is a grue nearby and try to reason with it.")
+	
+	input(4)
+	switchr{
+		['1']
+			println("You wait.")
+				goto(grue)
+		['2']
+			println("You walk directly backwards, but fail to find the door. You feels hands grab hold of you and pull you back.")
+				goto(terrorbegins)
+		['3']
+			println("As you drop to the floor and crawl franticly to a corner. You hear whispers from below.")
+				goto(horrorone)
+		['4']
+			println("You politely ask the grue not to eat you.")
+				goto(grue)
+	}
+}
+room horrorone{
+
+	println("Your eyes attempt to adjust to your surroundings, but you can barely make out the shape of the room.")
+	println("The sound of footsteps echo down the halway from behind the throne.")
+	println("There apears to be a hole in the floor to your left and a cabinet to your right.")
+	option(1, "Attempt to hide quietly in the cabinet.")
+	option(2, "Climb down the hole to the lower level.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You scramble into the cabinet trying not to make a sound. You bump your foot on the way in. The footsteps grow louder.")
+				goto(horrortwo)
+		
+		['2']
+			println("You try clmimbing down the hole, but you lose your footing.")
+				goto(bottomless)
+	}
+}
+room horrortwo{
+
+	println("Whatever is out there definately heard you, and is quickly aproaching.")
+	option(1, "Make a run for it.")
+	option(2, "Wait in the cabinet and hope that you are not found.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You leap forward from the cabinet full of adrenaline and head towards the dark hallway as fast as you can.")
+				goto(horrorrun)
+		
+		['2']
+			println("You wait anxiously and do your best to remain as quiet as possible.")
+				goto(horrorwait)
+	}
+}
+room horrorwait{
+
+	println("Your vital functions betray you, making you fight to keep your breathing quiet as your heart races. Whatever is outside has just come to a stop a few feet in front of the cabinet.")
+	option(1, "Make a run for it.")
+	option(2, "Wait in the cabinet and hope that you are not found.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You exit the cabinet as fast as possible, hitting the column directly in front of you and become disoriented.")
+				goto(grue)
+		
+		['2']
+			println("You wait anxiously and do your best to remain as quiet as possible.")
+				goto(horrorwaittwo)
+	}
+}
+room horrorwaittwo{
+
+	println("you hear whatever is outside pace around the room a few times. The footsteps grow quieter as it leaves down the hall again.")
+	option(1, "Leave the cabinet and quietly search for an exit.")
+	option(2, "Wait in the cabinet and hope that you are not found.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You quietly emerge from the cabinet and look around.")
+				goto(horrorwaitthree)
+		
+		['2']
+			println("You wait anxiously and do your best to remain as quiet as possible.")
+				goto(horrorwaitwrong)
+	}
+}
+room horrorwaitwrong{
+
+	println("Nothing seems to have happened for a few minutes.")
+	option(1, "Leave the cabinet and quietly search for an exit.")
+	option(2, "Wait in the cabinet and hope that you are not found.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You quietly emerge from the cabinet and look around.")
+				goto(horrorwaitthree)
+		
+		['2']
+			println("You pass out after a while after losing track of time.")
+				goto(grue)
+	}
+}
+room horrorwaitthree{
+
+	println("Once again you determine the only exits are through the hole in the floor or the dark hallway.")
+	option(1, "Go into the hall.")
+	option(2, "Climb down the hole to the lower level.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You begin making your way down the dark hallway. Outlines of doorways and statues are visible every now and then as you proceed. The hallway curves dramatically.")
+				goto(intersection)
+		
+		['2']
+			println("You try clmimbing down the hole, but you lose your footing.")
+				goto(bottomless)
+	}
+}
+room intersection{
+
+	println("The doors all apear to be locked. You come to a stairwell that leads downwards. To your right you see a light at the end of the hall. Behind you is the dark hallway.")
+	option(1, "Go to the lit room.")
+	option(2, "Go down the stairs.")
+	option(3, "Go into the hall.")
+	
+	input(3)
+	switchr{
+		['1']
+			println("You come to a lilbrary that is lit by wisps.")
+				goto(library)
+		
+		['2']
+			println("You proceed down the stairs, and you hear chanting echoing ")
+				goto(basement)
+		['3']
+			println("You proceed down the dark hallway.")
+				goto(grue)
+	}
+}
+room horrorrun{
+
+	println("Running down the halway you barely make out an open door. The hall curves abruptly in front of you and statues line the wall. Footsteps thump softly and rapidly on the stone behind you.")
+	option(1, "Go into the room.")
+	option(2, "Continue down the hall.")
+	option(3, "Try to slow your pursuer by knocking over a statue as you keep running down the hall.")
+	
+	input(3)
+	switchr{
+		['1']
+			println("You duck into the room quickly and close the door behind you.")
+				goto(grue)
+		
+		['2']
+			println("You wait anxiously and do your best to remain as quiet as possible.")
+				goto(horrorrunintersection)
+		['3']
+			println("You throw yourself into a human shaped statue with full force. It falls and you keep running. As you run pas the statue you get a glance of the hallway behind you, but it looks empty.")
+				goto(horrorrunwrong)
+	}
+}
+room horrorrunwrong{
+
+	println("You keep running, but the footsteps have gotten closer.")
+	println("You come to an intersection with stairs downwards, and a halway that is lit at the end.")
+	option(1, "keep running towards the lit room.")
+	option(2, "Run down the stairs.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You are too slow. You feel a force lift you into the air. Everything goes back around you. You hit the stone floor hard.")
+				goto(grue)
+		
+		['2']
+			println("You are too slow. You feel a force lift you into the air. Everything goes back around you. You hit the stone floor hard.")
+				goto(grue)
+	}
+}
+room horrorrunintersection{
+
+	println("You come to an intersection with stairs downwards, and a halway that is lit at the end.")
+	option(1, "keep running towards the lit room.")
+	option(2, "Run down the stairs.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You run into a library lit by wisps.")
+				goto(horrorrunlibrary)
+		
+		['2']
+			println("You are too slow. You feel a force lift you into the air. Everything goes back around you. You hit the stone floor hard.")
+				goto(grue)
+	}
+}
+room horrorrunlibrary{
+
+	println("As you run, you see coffins line the back wall.")
+	option(1, "keep running and try to hide in a coffin.")
+	option(2, "Turn around and face your attacker.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You run to the end of the row and scramble into the last coffin in a desprate attemt to hide.")
+				goto(horrorruncoffin)
+		
+		['2']
+			println("You see nothing following you.") 
+			println("The wisps extinguish.")
+				goto(grue)
+	}
+}
+room horrorruncoffin{
+
+	println("You try to remain quiet, but you soon pass out from fear and exhaustion. You wake up after an undetermined amount of time. It seems quiet outside.")
+	option(1, "Get out and look around.")
+	
+	input(1)
+	switchr{
+		['1']
+			println("You make your way out. Nothing seems to be an immediate threat.")
+				goto(library)
+	}	
+}
+room library{
+
+	println("In the library you see various books and statues of demons. The wisps dance about. There is an altar in the back sitting in front of a stone door.")
+	option(1, "Examine the altar.")
+	option(2, "Examine the door.")
+	option(3, "Head back to the intersection")
+	
+	input(3)
+	switchr{
+		['1']
+			println("The altar is covered in strange grooves and has a hemisphere indent in the center.")
+				goto(library)
+		['2']
+			println("The door has a symbol above it that matches the altar. You can hear wind howling on the other side of the door.")
+				goto(library)
+		['3']
+			println("You head back to the intersection.")
+				goto(intersection)
+	}
+}
+room basement{
+
+	println("After reaching the bottom of the stairs you see massive room. The floor is covered in still water with a glasslike apearance.")
+	println("the only light comes from a glowing orb hovering several feet above the center of the room. The disembodied chanting echos loudly throughout the room.")
+	println("To your right is a galss case holding a steel box with the word 'wisp prison' written on it. To your left is another case holding a grue transformatoin potion")
+	println("A warning posted next to the cases says that one case must be filled at all times")
+	option(1, "Take the potion.")
+	option(2, "Take the box.")
+	option(3, "Take both.")
+	option(4, "Go back upstairs.")
+	option(5, "Swim to the middle.")
+	
+	input(5)
+	switchr{
+		['1']
+			println("You transform into a grue. You have no idea what you look like. Out of curiosity you try to see your reflection in the water.")
+				goto(grue)
+		['2']
+			println("You take the box. Upon opening the box the light source hoverin in the center of the room disapears.")
+				goto(wisptaker)
+		['3']
+			println("You pick up the potion, and then go for the box. The moment you touch the box you find yourself inside a room with no windows or doors.")
+				goto(mushroom)
+		['4']
+			println("You head upstairs.")
+				goto(intersection)
+		['5']
+			println("Upon touching the water you find yourself in a room without windows or doors.")
+				goto(mushroom)
+	}
+}
+room wisptaker{
+
+	println("You hear screams coming from the darkness.")
+	println("The box shines a beam in front of you like a flashlight");
+	option(1, "Run back upstairs.")
+	option(2, "Look around the room.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You make your way back to hall. You hear the screams getting louder again.")
+				goto(wisptakertwo)
+		['2']
+			println("You try to see into the room, but you can't make out what is going on.")
+				goto(grue)
+	}	
+}
+room wisptakertwo{
+
+	println("You hear screams coming from below.")
+	println("There are two hallways. One that is dark, and one that is lit at the end.");
+	option(1, "head down the dark hallway.")
+	option(2, "Go towards the lit room.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You make your way back to hall. You are back where you started.")
+				goto(horroroutone)
+		['2']
+			println("You go to the lit room.")
+				goto(horrordoorone)
+	}	
+}
+room horroroutone{
+
+	println("You can now make out the door you first came through")
+	println("Screams echo from down the hallway you just came from.");
+	option(1, "Try to leave through the door.")
+	option(2, "Go back")
+	
+	input(2)
+	switchr{
+		['1']
+			println("The door opens, and disappears behind you. The wisp you have been chasing also vanishes. You are forever lost in the woods.")
+				goto(gameover)
+		['2']
+			println("Your wisp leaves you.")
+				goto(grue)
+	}	
+}
+room horrordoorone{
+
+	println("In the library you see various books and statues of demons. The wisps dance about. There is an altar in the back sitting in front of a stone door.")
+	println("the wisps illuminating the library all swarm into the box you are carrying, and the light intensifies.")
+	option(1, "place the wisps on the altar")
+	
+	input(1)
+	switchr{
+		['1']
+			println("You place the wisps on the altar. Bright light floods the room, and the door opens.")
+				goto(horrordoortwo)
+	}
+}
+room horrordoortwo{
+
+	if (doomed)
+	{
+		println("You leave, and find yourself back in the woods. It becomes night immediately after.")
+	goto(grue)
+	}
+	else
+	{
+		println("Upon leaving the door you find yourself back on a well lit path leading into the woods.")
+		println("You have escaped the nightmare for now.")
+	}
+}
+room mushroom{
+	println("In the center of the floor you see an inscription. It reads 'welcome to the mushroom.'")
+	continue()
+	println("You starve to death inside the mushroom.")
+	goto(gameover)
+}

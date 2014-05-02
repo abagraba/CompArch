@@ -7,6 +7,9 @@ import Testing.Output;
 
 
 
+/**
+ * Generic class for all statements in the code. Contains default top-level behavior.
+ */
 public abstract class Entry {
 
 	public void codeGen() {
@@ -17,6 +20,7 @@ public abstract class Entry {
 		Output.print(JumpAllocator.generateMIPSData());
 		Output.print(".text");
 		Output.print(".globl	main");
+		Output.print("	j		main");
 		codeGen(-1);
 		Output.print("########################################################################################\n####									ERROR										####\n########################################################################################");
 		Output.print("error:");

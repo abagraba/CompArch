@@ -2,10 +2,14 @@ package Parsing;
 
 import java.util.LinkedList;
 
+import Engine.SyscallAllocator;
 import Testing.Output;
 
 
 
+/**
+ * Entry that contains all necessary information for initializing a Room.
+ */
 public class Room extends Entry {
 
 	private String				name;
@@ -29,6 +33,7 @@ public class Room extends Entry {
 
 	@Override
 	public void codeGen(int indent) {
+		SyscallAllocator.invalidate();
 		int t = 1 + (name.length() - 3) / 4;
 		int l = (20 - t) / 2;
 		int r = 20 - t - l;

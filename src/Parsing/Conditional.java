@@ -8,6 +8,9 @@ import Testing.Output;
 
 
 
+/**
+ * Handles conditional statements
+ */
 public class Conditional extends Entry {
 
 	public static final int		IFTRUE	= 0;
@@ -41,6 +44,7 @@ public class Conditional extends Entry {
 		Boolean b = BooleanAllocator.interpret(bool);
 		String[] sa = b.labelSet();
 		switch (type) {
+		// Statements of the form if(var)
 			case IFTRUE:
 				Output.print("		andi	$t0, " + b.register + ", " + b.mask());
 				Output.print("		beq		$t0, $0, " + (elsee != null ? sa[FALSE] : sa[END]));
@@ -54,6 +58,7 @@ public class Conditional extends Entry {
 				}
 				Output.print(sa[END] + ":");
 				break;
+			// Statements of the form if(!var)
 			case IFFALSE:
 				Output.print("		andi	$t0, " + b.register + ", " + b.mask());
 				Output.print("		bne		$t0, $0, " + (elsee != null ? sa[FALSE] : sa[END]));
@@ -67,8 +72,18 @@ public class Conditional extends Entry {
 				}
 				Output.print(sa[END] + ":");
 				break;
+			// Statements of the form if($reg)
 			case IFREG:
 				Output.print("		bne		$t0, " + bool + ", " + (elsee != null ? sa[FALSE] : sa[END]));
+				for (Entry e : iff)
+					e.codeGen(0);
+				if (elsee != null) {
+					Output.print("		j		" + sa[END]);
+					Output.print(sa[FALSE] + ":");
+					for (Entry e : elsee)
+						e.codeGen(0);
+				}
+				Output.print(sa[END] + ":");
 				break;
 		}
 	}

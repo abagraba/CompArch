@@ -1,0 +1,1057 @@
+room labenter{
+	println("As you walk down the path, the darkness begins to close in.")
+	println("Eerie sounds groan from the depths of the woods.")
+	println()
+	continue()
+	
+	println("Suddenly you are blinded by a brilliant bright light.")
+	println("As the spots fade from your vision, you see the steel gray walls of a facility of some sort.")
+	println("You must have triggered the proximity sensors of the lights.")
+	println()
+	checkpoint(labentera)
+	option(1, "Enter the facility...")
+	option(2, "Examine the door...")
+	input(1)
+	switchr{
+		['1']
+			goto(lab)
+		['2']
+			println("The door is wide open. It appears to have rusted brown gashes cut deep in the door and the surrounding frame.")
+			println()
+			goto(labentera)
+	}
+}
+
+room lab{
+	println("The lab is a wreck.")
+	println("You pass upended tables, singed furniture, and even a broken coffee pot... Those heathens.")
+	println()
+	continue()
+	println("This place has clearly not been inhabited in a long, long time.")
+	println("Foliage from the forest has made its way deep into the laboratory.")
+	println()
+
+	checkpoint(labPlant)
+	option(1, "Continue onwards...")
+	option(2, "Examine the plant...")
+	input(2)
+	switchr{
+		['1']
+			println("You continue down the hallway.")
+			println()
+		['2']
+			println("The leaves seem to sway in the windless corridor. It is almost as if they are alive.")
+			continue()
+			println("You reach down and try to pluck a leaf.")
+			println("The vine begins shaking wildly. You hear a loud screeching coming from where you came.")
+			println("Perhaps it would be better off not touching it yet.")
+			println()
+	}
+	
+	println("You reach the end of the long hallway. Ahead of you a pair of signs point down two hallways.")
+	println("The one pointing to the right says maintenance.")
+	println("The one pointing to the left says experiment laboratories.")
+	println()
+		
+	checkpoint(labhall)
+	
+	option(1, "Go to maintenance...")
+	option(2, "Go to experiment laboratories...")
+	input(2)
+	
+	switch{
+		['1']
+			goto(powerout)
+		['2']
+			goto(powerout)
+	}
+	
+	println("You stand there unsure of what to do...")
+	println()
+	goto(labhall)
+	
+	checkpoint(powerout)	
+	println("Suddenly, the lights flicker. The facility shakes as you hear a loud grinding sound.")
+	println("The lights go dark...")
+	println()
+	continue()
+
+	println("You sit there in silence for a brief moment.")
+	println("Suddenly a strip of green lighting lightens up to the right.")
+	println("'Emergency power activated!', blares out from multiple speakers along the hall.")
+	println("'Please follow the emergency lighting strips to maintenance to address the issue.'")
+	println()
+
+	checkpoint(labfollow)
+	
+	option(1, "Follow the lights...")
+	option(2, "Go back the way you came...")
+	input(2)
+	
+	switch{
+		['1']
+			goto(maintenance)
+		['2']
+			println("It seems that a powered blast door closed behind you during the incident.")
+			println("You are not going to get back out this way without power.")
+			println()
+			goto(labfollow)
+	}
+}
+
+room maintenance{
+	println("You follow the lights down a shady set of stairs. They creak ominously.")
+	println("The basement seems to be much worse off than the rest of the laboratory.")
+	println("Stagnant water rises up to your knees and the putrid smell of decaying plant matter is almost overwhelming.")
+	println()
+	continue()
+	
+	println("Your foot gets caught on something and you trip.")
+	println("You splash into the nauseating water.")
+	println("You make it back up and attempt to resist the urge to vomit.")
+	println("Your efforts were futile...")
+	println()
+	println("You reach into the water trying to figure out what tripped you.")
+	println()
+	println("!!! Rusty old pipe get !!!")
+	set(rpipe)
+	println()
+	continue()
+	
+	goto(labbasement)
+}
+
+room labbasement{
+	if (xbase){
+		println("You return to the branched hallways.")
+		println()
+	}
+	else{
+		println("You see two paths. The sign says that they lead to the generator room and vehicle maintenance.")
+		println()
+		set(xbase)
+	}
+
+	if (power){
+		option(1, "Go back upstairs...")
+		input(1)
+	}
+	else{
+		option(1, "Go to vehicle maintenance...")
+		option(2, "Go to the generator room...")
+		input(2)
+	}
+	switch{
+		['1']
+			if (power)
+				goto(upstairs)
+			goto(vehicle)
+		['2']
+			goto(generatorroom)
+	}
+
+}
+
+
+room vehicle{
+	if (gas){
+		println("you definitely do not want to go back in there with that thing again...")
+		goto(labbasement)
+	}
+	else{
+		println("You enter the darkened garage.")
+		println("Dark silhouettes of ominous vehicles you have never seen before loom over you.")
+		println("Suddenly, you hear a clattering in the darkness.")
+		println("You freeze.")
+		goto(vehicle11)
+	}
+}
+room vehicle11{
+	println("You hear an ominous panting in front of you.")
+	println()
+	
+	option(d, "Sneak right...")
+	option(w, "Sneak forward...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['d'] 
+			println("You sneak to the right...")
+			goto(vehicle12)
+		['w'] 
+			println("You sneak forward...")
+			goto(grue)
+		['s'] 
+			println("You sneak back...")
+			goto(labbasement)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+	
+}
+
+room vehicle12{
+	println("You hear an ominous panting to your left.")
+	println()
+	
+	option(a, "Sneak left...")
+	option(d, "Sneak right...")
+	option(w, "Sneak forward...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['a'] 
+			println("You sneak to the left...")
+			goto(grue)
+		['d'] 
+			println("You sneak to the right...")
+			goto(vehicle13)
+		['w'] 
+			println("You sneak forward...")
+			goto(vehicle22)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+
+}
+room vehicle13{	
+	println("You hear an ominous panting in front of you.")
+	println()
+	
+	option(a, "Sneak left...")
+	option(w, "Sneak forward...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['a'] 
+			println("You sneak to the left...")
+			goto(vehicle12)
+		['w'] 
+			println("You sneak forward...")
+			goto(grue)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+
+room vehicle21{	
+	println("You hear an ominous panting to your right.")
+	println()
+	
+	option(d, "Sneak right...")
+	option(w, "Sneak forward...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['d'] 
+			println("You sneak to the right...")
+			goto(grue)
+		['w'] 
+			println("You sneak forward...")
+			goto(vehicle31)
+		['s'] 
+			println("You sneak back...")
+			goto(vehicle11)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+room vehicle22{
+	println("You hear an ominous panting to your right.")
+	println()
+	
+	option(a, "Sneak left...")
+	option(d, "Sneak right...")
+	option(w, "Sneak forward...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['a'] 
+			println("You sneak to the left...")
+			goto(vehicle21)
+		['d'] 
+			println("You sneak to the right...")
+			goto(grue)
+		['w'] 
+			println("You sneak forward...")
+			goto(vehicle32)
+		['s'] 
+			println("You sneak back...")
+			goto(vehicle12)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+room vehicle23{
+	println("You hear an ominous panting behind you.")
+	println()
+	
+	option(a, "Sneak left...")
+	option(w, "Sneak forward...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['a'] 
+			println("You sneak to the left...")
+			goto(vehicle22)
+		['w'] 
+			println("You sneak forward...")
+			goto(vehicle33)
+		['s'] 
+			println("You sneak back...")
+			goto(grue)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+room vehicle31{
+	println("You hear an ominous panting to your right.")
+	println()
+	
+	option(d, "Sneak right...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['d'] 
+			println("You sneak to the right...")
+			goto(grue)
+		['s'] 
+			println("You sneak back...")
+			goto(vehicle21)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+room vehicle32{
+	println("You hear an ominous panting behind you.")
+	println()
+	
+	option(a, "Sneak left...")
+	option(d, "Sneak right...")
+	option(s, "Sneak back...")
+	option(r, "Run for your life...")
+	
+	input(0)
+	
+	switch{
+		['a'] 
+			println("You sneak to the left...")
+			goto(vehicle31)
+		['d'] 
+			println("You sneak to the right...")
+			goto(vehicle33)
+		['s'] 
+			println("You sneak back...")
+			goto(grue)
+		['r'] 
+			println("You try to run...")
+			println("A terrifying screech comes from behind you.")
+			println("You feel a searing pain in your leg as you fall to the floor.")
+			goto(grue)
+	}
+}
+room vehicle33{
+	println("You find a can of gasoline!")
+	println()
+	println("!!! Gasoline Get !!!")
+	println()
+	println("You leave quickly before the mysterious thing gets you.")
+	set(gas)
+	goto(labbasement)
+}
+
+
+room generatorroom{
+	if (xgeneratorroom){
+	}
+	else{
+		set(xgeneratorroom)
+		println("You enter what appears to be the main generator room")
+	}
+	
+	println("There is a large generator in the center of the room")
+	
+	if (xpump)
+		println("There is also a small drainage pump.")
+	else
+		println("There also seem to be other machines around.")
+	
+	checkpoint(gen)
+	
+	if (xgen){
+		option(1, "Activate the Generator...")
+		input(1)
+	}
+	else{
+		option(1, "Examine the Generator...")
+		if (xpump)
+			option(2, "Activate the pump...")
+		else
+			option(2, "Examine the other machines...")
+		option(3, "Go back the way you came...")
+		input(3)
+	}
+	
+	switch{
+		['1']
+			if (xgen){
+				println("The large generator lets out a grinding squeal that can be heard for miles. It slowly starts screeching its way to a start.")
+				println("The lights flicker back on.")
+				println("The speakers announce loudly, 'Power has been restored. Please proceed with your research activities.'")
+				set(power)
+				goto(goodgenroom)
+			}
+			else{
+					println("The large generator is flooded. No way you can get it started without getting rid of the water.")
+					println()
+					goto(gen)					
+			}
+		['2']
+			if (xpump){
+				if (gas){
+					println("You fill the pump with gas.")
+					println("You pull the starter cord. The pump wheezes lightly. It slowly whirrs to life.")
+					println("You feel the water around your knees slowly sink away.")
+					println()
+					set(xgen)
+					goto(gen)
+				}
+				else
+					println("You pull the starter cord. The pump wheezes lightly. It appears to be out of fuel.")
+					println()
+					goto(gen)
+			}
+			else{
+				println("The machine appears to be a large pump.")
+				println()
+				set(xpump)
+				goto(gen)
+			}
+		['3']
+			goto(labbasement)
+	}
+}
+
+room goodgenroom{
+	println("Your job acheived, you decide to head back.")
+	goto(labbasement)
+}
+
+room upstairs{
+	println("You clamber back up the stairs, clothes still dripping with filth.")
+	println("Today has not been one of your best days. Not the worst, but definitely not the best.")
+	continue()
+	println("You march onwards towards the experiment labs. Not the best place, but you will most likely find your answers there.")
+	println("You pass through an administrative area.")
+	println("Monitors with what appear to be technical reports and logs glow dimly in the darkness.")
+	goto(computers)
+}
+
+room computers{
+	println()
+	option(1, "Read the first monitor.")
+	option(2, "Read the second monitor.")
+	option(3, "Read the third monitor.")
+	println("		Press space to continue onwards.")
+	input(3)
+	switchr{
+		['1']
+			println("Darryl Svaren")
+			println("Expedition Log # 362:")
+			println()
+			println("	The research lab is doing well. The locale is full of new things to study and discover. This")
+			println("place is a veritable bounty of data and discoveries. I can't help but think there is something")
+			println("gravely wrong with this place though. I feel as if I am being watched by something. I know its")
+			println("just paranoia from being stuck here for a few years, but I just can't shake the feeling that") 
+			println("something weird is going on.")
+			continue()
+			goto(computers)
+		['2']
+			println("Emelia Torvar")
+			println("Expedition Log # 32:")
+			println()
+			println(" I really have trouble remembering to keep these damn logs. Command tells us we should write on once")
+			println("a week, but theyre just so useless. Damn Garvin tore me a new one when he saw how many I've written.")
+			println("So here I am... Writing a log... Not really sure what else to say...")
+			continue()
+			goto(computers)
+		['3']
+			println("Environmental Analysis:")
+			println()
+			println("Bog Gas")
+			println()
+			println("	This odd gas seems to be generated from some unknown process in the bog nearby this facility. We have")
+			println("yet to identify the chemical composition of this mysterious gas. The main difficulty is in safely acquiring")
+			println("and storing this horrid substance. It seems to be a mild neurotoxin with highly hallucinogenic effects.")
+			println("It also appears to be highly corrosive to all the containers we have tried to store it in. The containers end")
+			println("up becoming porous and the gas ends up leaking out into the facility.")
+			continue()
+			println("	Last week Bill got a lungful of the stuff when he was cleaning the lab. He started walking around pretending")
+			println("that he was a janitor. He also started narrarating everything he did in a funny voice.")
+			println("	'I walked around scouring the floor for dirt. I knew it was there on the ground waiting for me.'")
+			println("	'I couldn't let it get the better of me. I wouldn't. That was when tripped over the mop bucket.'")
+			println("	'And that was how I met my fate.'")
+			println("Bill was fine afterwards. There didn't seem to be any lasting side effects. Though we couldn't stop laughing at")
+			println("him for the next week.")
+			continue()
+			println("The stuff is prettty strong. John got a passing whiff when I was moving a canister. After he got hit he ran around the")
+			println("lab chasing the cat 'Wisp' around for the next three hours. That cat still hisses at him whenever he passes by.")
+			continue()
+			println("Janice got hit the worst. She accidentally got locked in a room with it 2 weeks ago and now she's still crawling around")
+			println("trying to lick and eat everything. She even lets out weird bleating noises whenever that one song comes on the")
+			println("radio. Hope she gets better soon.")
+			println()
+			println("So yeah. This stuff is pretty bad. If you go out to the bog get your environmental suits on. You don't want to go crazy out there.")
+			continue()
+			goto(computers)
+		[' ']
+			goto(vault)			
+	}
+}
+
+room vault{
+	if (vault){
+		$t0 = 0
+		if (console1)
+		if (console2)
+		if (console3)
+		if (console4)
+		if (console5)
+		if (console6)
+		if (console7)
+		if (console8)
+		if (console9)
+		if (console10)
+		if (console11)
+		if (console12)
+			set(unlock)
+	}
+	else {
+		println("You find yourself before a large vault door.")
+		println("The vault door has 12 large lights embedded in the wall above it.")
+		set(vault)
+	}
+	
+	println("There are an array of consoles on each side of the room.")
+
+	option(1, "Go to the left side.")
+	option(2, "Go to the right side.")
+	option(3, "Open the door.")
+	
+	input(3)
+	switchr{
+		['1']
+			goto(vaultleft)
+		['2']
+			goto(vaultright)
+		['3']
+			if (unlock){
+				goto(winner)
+			}
+			else{
+				println("The door seems to be locked.")
+				goto(vault)
+			}
+	}
+	
+	continue()
+	goto(vault)
+	
+}
+
+room vaultleft{
+	println("You see 6 consoles in front of you.")
+	
+	option(1, "Use the first console.")
+	option(2, "Use the second console.")
+	option(3, "Use the third console.")
+	option(4, "Use the fourth console.")
+	option(5, "Use the fifth console.")
+	option(6, "Use the sixth console.")
+	option(7, "Leave the consoles.")
+	input(7)
+	
+	switchr{
+		['1']
+			if (console1){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons1)
+		['2']
+			if (console2){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons2)
+		['3']
+			if (console3){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons3)
+		['4']
+			if (console4){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons4)
+		['5']
+			if (console5){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons5)
+		['6']
+			if (console6){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultleft)
+			}
+			else
+				goto(cons6)
+		['7']
+			goto(vault)
+	}
+}
+
+room vaultright{
+	println("You see 6 consoles in front of you.")
+	
+	option(1, "Use the seventh console.")
+	option(2, "Use the eighth console.")
+	option(3, "Use the ninth console.")
+	option(4, "Use the tenth console.")
+	option(5, "Use the eleventh console.")
+	option(6, "Use the twelfth console.")
+	option(7, "Leave the consoles.")
+	input(7)
+	
+	switchr{
+		['1']
+			if (console7){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons7)
+		['2']
+			if (console8){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons8)
+		['3']
+			if (console9){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons9)
+		['4']
+			if (console10){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons10)
+		['5']
+			if (console11){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons11)
+		['6']
+			if (console12){
+				println("The lock for this console has already been unlocked.")
+				goto(vaultright)
+			}
+			else
+				goto(cons12)
+		['7']
+			goto(vault)
+	}
+}
+
+room cons1{
+	println("The console prompts your for input.")
+	
+	checkpoint(cons1a)
+	println("'Please enter a prime number.'")
+	
+	option(1, "Enter a prime number.")
+	option(2, "Enter a non-prime number.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You enter a prime number. You think...")
+		['2']
+			println("You enter 2.")
+			println("The console responds:")
+			goto(cons1a)
+	}
+
+	println("The console prompts your for input.")
+	
+	checkpoint(cons1b)
+	println("'Please enter another prime number.'")
+	
+	option(1, "Enter a prime number.")
+	option(2, "Enter a non-prime number.")
+	
+	input(2)
+	switchr{
+		['1']
+			println("You enter a prime number. You think...")
+		['2']
+			println("You enter 4.")
+			println("The console responds:")
+			goto(cons1b)
+	}
+	println("The console states:")
+	println("'Generating RSA key...'")
+	continue()
+	println("The console states:")
+	println("'Error encrypting unlock code...'")
+	println("'Sending valid key to console 4...'")
+	set(console1)
+	continue()
+	goto(vaultleft)
+}
+
+room cons2{
+
+}
+
+room cons3{
+
+}
+
+room cons4{
+	if (console1){
+		println("The console states:")
+		println("'Public key override active.'")
+		println("'Encrypting message...'")
+		continue()
+		println("'Transmitting message...'")
+		continue()
+		println("'Lock opened.'")
+		set(console4)
+		continue()
+		goto(vaultleft)
+	}
+	else {
+		println("The console prompts your for input.")
+		
+		checkpoint(cons4a)
+		println("'Please enter a prime number.'")
+		
+		option(1, "Enter a prime number.")
+		option(2, "Enter a non-prime number.")
+		
+		input(2)
+		switchr{
+			['1']
+				println("You enter a prime number. You think...")
+			['2']
+				println("You enter 2.")
+				println("The console responds:")
+				goto(cons4a)
+		}
+	
+		println("The console prompts your for input.")
+		
+		checkpoint(cons4b)
+		println("'Please enter another prime number.'")
+		
+		option(1, "Enter a prime number.")
+		option(2, "Enter a non-prime number.")
+		
+		input(2)
+		switchr{
+			['1']
+				println("You enter a prime number. You think...")
+			['2']
+				println("You enter 4.")
+				println("The console responds:")
+				goto(cons4b)
+		}
+		println("The console states:")
+		println("'Generating RSA key...'")
+		continue()
+		println("The console states:")
+		println("'Error generating RSA key...'")
+		println("'Could not continue...'")
+		continue()
+		goto(vaultleft)
+	}
+}
+
+room cons5{
+	println("The console seems to have a game on it...")
+	checkpoint(cons5a)
+	continue()
+	println("You sit in front of a campfire.")
+	println("The bright light is soothing.")
+	continue()
+	println("You hear wolves growling in the darkness.")
+	println("You grab your beef jerky and start running.")
+	continue()
+	println("The wolves get closer and closer")
+	option(1, "Throw your beef jerky.")
+	option(2, "Run away with your beef jerky.")
+	option(3, "Eat your beef jerky.")
+	
+	input(3)
+	switchr{
+		['1']
+			println("You throw your beef jerky.")
+			println("Man you miss your beef jerky.")
+			set(nojerky)
+			continue()
+		['2']
+			println("You run away with your beef jerky.")
+			println("Mmmmmm... Jerky....")
+			continue()
+		['3']
+			println("You stop and eat your beef jerky.")
+			println("Man that was delicious.")
+			continue()
+			println("You get eaten by wolves.")
+			println("Man you were delicious.")
+			continue()
+			goto(cons5a)
+	}
+	println("You reach the edge of a cliff. You have no traction in the slippery mud...")
+	println("You fall off the edge.")
+
+	option(1, "Break your fall with the beef jerky.")	
+	option(2, "Protect your beef jerky.")	
+	option(3, "Eat your beef jerky.")
+	input(3)	
+
+	switchr{
+		['1']
+			if(nojerky){
+				println("You break your fall with your non-existent jerky.")
+				println("Oh wait....")
+				println("Nevermind...")
+				println("You break your neck.")
+				continue()
+				goto(cons5a)
+			}
+			else{
+				println("You break your fall with your jerky.")
+				println("It's all muddy now... Ewwww....")
+				set(mudjerky)
+				continue()
+			}
+		['2']
+			println("You protect your beef jerky.")
+			if(nojerky){
+				println("Oh wait... You dont have any jerky...")
+				println("Now you are sad.")
+			}
+			println("You land on your face.")
+			continue()
+			println("OH GOD THE PAIN!!!!")
+			continue()
+			println("OH GOD THE PAIN!!!!")
+			continue()
+			println("OH GOD THE PAIN!!!!")
+			if(nojerky){
+				continue()
+			}
+			else{
+				continue()
+				println("At least the jerky is fine...")
+				continue()
+			}
+		['3']
+			println("You eat your beef jerky.")
+			if(nojerky){
+				println("Mmmmmm... Jerky....")
+			}
+			else{
+				println("Oh wait... You have no jerky...")
+			}
+			continue()
+			println("You break your neck.")
+			goto(cons5a)
+	}
+
+	println("You get up and continue running...")
+	println("You reach the edge of a small town.")
+	continue()
+	println("The guards refuse to let you pass.")
+
+	option(1, "Bribe the guards with jerky.")
+	option(2, "Keep your beef jerky.")	
+	option(3, "Eat your beef jerky.")
+	input(3)	
+
+	switchr{
+		['1']
+				println("You bribe the guards with your jerky.")
+				if (nojerky){
+					println("The guard shouts, 'You think we're idiots? You have no jerky!'")
+					println("The guard stabs you with his spear.")
+					println("Well.. That jerky was delicious.")
+					continue()
+					goto(cons5a)
+				}
+				else{
+					if (mudjerky){
+						println("The guard shouts, 'You think we're idiots? That stuff is muddy!'")
+						println("The guard stabs you with his spear.")
+						continue()
+						goto(cons5a)
+					}
+					else{
+						println("The guards take the jerky and allow you to pass.")
+						continue()
+						goto(cons5b)
+					}
+				}
+		['2']
+			println("You keep your beef jerky.")
+			continue()
+		['3']
+			println("You eat your beef jerky.")
+			if (nojerky){
+				println("Oh wait... You have no jerky.")
+				continue()
+			}
+			else{
+				if (mudjerky){
+					println("Ugh... that stuff was nasty...")
+					continue()
+				}
+				else{
+					println("You stop and eat your beef jerky.")
+					println("Man that was delicious.")
+					continue()
+					println("You get eaten by wolves.")
+					println("Man you were delicious.")
+					continue()
+					goto(cons5a)
+				}
+			}
+			println("The wolves find you and eat you.")
+			continue()
+			goto(cons5a)
+	}
+	checkpoint(cons5b)
+	println("You survive!")
+	println()
+	println("You hear a click as one of the locks unlock...")
+	set(console5)
+	goto(vaultleft)
+}
+
+room cons6{
+
+}
+
+room cons7{
+
+}
+
+room cons8{
+	println("The console seems to display a game.")
+	println("There appears to be two characters on the screen.")
+	println("One is on the left.")
+	println("The other is on the right.")
+	
+	$t0 = 0
+	
+	checkpoint(move8)
+	$t1 = $t0 < 16
+	if ($t1){
+		option(a, "Move left.")
+		option(d, "Move right.")
+		input(0)
+		switchr{
+			['a']
+				println("You move left.")
+			['d']
+				println("You move right.")
+		}
+		$t0 += 1
+		goto(move8)
+	}
+	
+	println("Suddenly you hear a click as the door unlocks.")
+	set(console8)
+	continue()
+	goto(vaultright)
+}
+
+room cons9{
+
+}
+
+room cons10{
+
+}
+
+room cons11{
+
+}
+
+room cons12{
+
+}
+
+room winner{
+	println("YOU WINNER!")
+	goto(winner)
+}
+

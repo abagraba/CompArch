@@ -4,6 +4,9 @@ import java.util.LinkedHashMap;
 
 
 
+/**
+ * Allocates memory to strings and stores them in .data segment. Reuses reused strings to save memory.
+ */
 public class StringAllocator {
 
 	private static LinkedHashMap<String, String>	labels	= new LinkedHashMap<String, String>();
