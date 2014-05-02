@@ -18,18 +18,17 @@ public class ParseTest {
 	public static void main(String[] args) {
 		try {
 			Output.out = new BufferedWriter(new FileWriter(new File("src/Testing/output.asm")));
-			TAParser ta = new TAParser(poemSource);
-			ta.run();
 		}
 		catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		TAParser ta = new TAParser(poemSource);
+		ta.run();
 		try {
 			if (Output.out != null)
 				Output.out.flush();
 		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

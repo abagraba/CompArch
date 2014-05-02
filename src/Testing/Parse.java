@@ -2,9 +2,9 @@ package Testing;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import Parsing.TAParser;
 
@@ -13,7 +13,7 @@ import Parsing.TAParser;
 public class Parse {
 
 	public static void main(String[] args) {
-		File in = new File("input.hnry");
+		LinkedList<File> in = new LinkedList<File>();
 		File out = new File("output.asm");
 		File err = new File("log.txt");
 
@@ -24,20 +24,24 @@ public class Parse {
 		catch (IOException e) {
 			e.printStackTrace();
 		}
+		File[] files = new File(".").listFiles();
+		for (File file : files)
+			if (file.getName().matches(".+\\.hnry")) {
+				Error.print("File " + file.getName() + " found.");
+				in.add(file);
+			}
 
-		if (!in.exists()) {
-			Error.print("[input.hnry] does not exist.");
+		if (in.isEmpty()) {
+			Error.print("No .hnry files found.");
 			Error.flush();
 			return;
 		}
 
-		try {
-			TAParser ta = new TAParser(new FileReader(in));
-			ta.run();
-		}
-		catch (IOException e) {
-			e.printStackTrace();
-		}
+		Error.print("Parsing....");
+		Error.flush();
+		TAParser ta = new TAParser(in.toArray(new File[in.size()]));
+		ta.run();
+
 		Output.flush();
 		Error.print("Compilation complete");
 		Error.flush();
