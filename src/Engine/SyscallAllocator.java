@@ -14,6 +14,7 @@ public class SyscallAllocator {
 	private static int				aa0		= -1;
 	private static int				aa1		= -1;
 	private static int				aa2		= -1;
+	private static String			sa0		= null;
 
 	public static void call(int v0) {
 		if (vv0 != v0)
@@ -58,20 +59,24 @@ public class SyscallAllocator {
 	public static void call(int v0, String a0) {
 		if (vv0 != v0)
 			Output.print("		li	$v0, " + v0);
-		Output.print("		la	$a0, " + a0);
+		if (!a0.equals(sa0))
+			Output.print("		la	$a0, " + a0);
 		set(v0, -1, aa1, aa2);
+		sa0 = a0;
 		Output.print("		syscall");
 	}
 
 	public static void call(int v0, String a0, int a1, int a2) {
 		if (vv0 != v0)
 			Output.print("		li	$v0, " + v0);
-		Output.print("		la	$a0, " + a0);
+		if (!a0.equals(sa0))
+			Output.print("		la	$a0, " + a0);
 		if (aa1 != a1)
 			Output.print("		li	$a1, " + a1);
 		if (aa2 != a2)
 			Output.print("		li	$a2, " + a2);
 		set(v0, -1, a1, a2);
+		sa0 = a0;
 		Output.print("		syscall");
 	}
 
@@ -92,11 +97,14 @@ public class SyscallAllocator {
 		aa0 = -1;
 		aa1 = -1;
 		aa2 = -1;
+		sa0 = null;
 	}
 
 	private static void set(int v0, int a0, int a1, int a2) {
 		vv0 = v0;
 		aa0 = a0;
+		if (a0 != -1)
+			sa0 = null;
 		aa1 = a1;
 		aa2 = a2;
 	}

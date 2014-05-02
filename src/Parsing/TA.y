@@ -1,15 +1,16 @@
 %{
-import java.util.LinkedList;
-import java.io.Reader;
 import java.io.IOException;
+import java.io.Reader;
+import java.util.LinkedList;
+import java.io.InputStream;
 
-import java.util.HashMap;
-
-import Engine.*;
+import Engine.StringAllocator;
+import Testing.Error;
 
 %}
       
       
+%token	REG
 %token	ID
 %token	ROOM
 %token	CASE
@@ -17,6 +18,15 @@ import Engine.*;
 %token	STRING
 %token	WORD
 %token	METHOD
+
+%token	EQ
+%token	EQU
+%token	INC
+%token	DEC
+%token	LT
+%token	GT
+
+%token	RAW
 
 %token	IF
 %token	ELSE
@@ -58,20 +68,40 @@ commands	:										{ $$.obj = new LinkedList<Entry>(); }
 command		:	switch								{ $$.obj = $1.obj; }
 			|	method								{ $$.obj = $1.obj; }
 			|	conditional							{ $$.obj = $1.obj; }
+			|	equation							{ $$.obj = $1.obj; }
+			|	RAW									{ $$.obj = new Raw($1.sval); }
+			;
+			
+equation	:	REG EQ REG EQU REG					{ $$.obj = new Equation(Equation.equ, $1.sval, $3.sval, $5.sval); }
+			|	REG EQ REG EQU NUM					{ $$.obj = new Equation(Equation.equ, $1.sval, $3.sval, $5.ival); }
+			|	REG EQ REG LT REG					{ $$.obj = new Equation(Equation.lt, $1.sval, $3.sval, $5.sval); }
+			|	REG EQ REG LT NUM					{ $$.obj = new Equation(Equation.lt, $1.sval, $3.sval, $5.ival); }
+			|	REG EQ REG GT REG					{ $$.obj = new Equation(Equation.gt, $1.sval, $3.sval, $5.sval); }
+			|	REG EQ REG GT NUM					{ $$.obj = new Equation(Equation.gt, $1.sval, $3.sval, $5.ival); }
+			|	REG INC NUM							{ $$.obj = new Equation(Equation.inc, $1.sval, $3.ival); }
+			|	REG INC REG							{ $$.obj = new Equation(Equation.inc, $1.sval, $3.sval); }
+			|	REG DEC NUM							{ $$.obj = new Equation(Equation.dec, $1.sval, $3.ival); }
+			|	REG DEC REG							{ $$.obj = new Equation(Equation.dec, $1.sval, $3.sval); }
+			|	REG EQ NUM							{ $$.obj = new Equation(Equation.eq, $1.sval, $3.ival); }
+			|	REG EQ REG							{ $$.obj = new Equation(Equation.eq, $1.sval, $3.sval); }
 			;
 			
 method		:	METHOD '(' args ')'					{ $$.obj = new Method($1.ival, (LinkedList<String>) $3.obj); }
 			|	METHOD '(' ')'						{ $$.obj = new Method($1.ival, new LinkedList<String>()); }
 			;
 			
-conditional	:	if									{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, null, $1.ival == 1); }
-			|	if else								{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, (LinkedList<Entry>)$2.obj, $1.ival == 1); }
+conditional	:	if									{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, null, $1.ival); }
+			|	if else								{ $$.obj = new Conditional($1.sval, (LinkedList<Entry>)$1.obj, (LinkedList<Entry>)$2.obj, $1.ival); }
 			;
 			
-if			:	IF '(' WORD ')' '{' commands '}'		{ $$.sval =  $3.sval; $$.ival = 1; $$.obj = $6.obj; }
-			|	IF '(' WORD ')' command 				{ $$.sval =  $3.sval; $$.ival = 1; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
-			|	IF '(' '!' WORD ')' '{' commands '}'	{ $$.sval =  $3.sval; $$.ival = 0; $$.obj = $6.obj; }
-			|	IF '(' '!' WORD ')' command 			{ $$.sval =  $3.sval; $$.ival = 0; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
+if			:	IF '(' WORD ')' '{' commands '}'		{ $$.sval =  $3.sval; $$.ival = Conditional.IFTRUE; $$.obj = $6.obj; }
+			|	IF '(' WORD ')' command 				{ $$.sval =  $3.sval; $$.ival = Conditional.IFTRUE; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
+			|	IF '(' '!' WORD ')' '{' commands '}'	{ $$.sval =  $4.sval; $$.ival = Conditional.IFFALSE; $$.obj = $7.obj; }
+			|	IF '(' '!' WORD ')' command 			{ $$.sval =  $4.sval; $$.ival = Conditional.IFFALSE; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$6.obj); }
+			|	IF '(' REG ')' '{' commands '}'			{ $$.sval =  $3.sval; $$.ival = Conditional.IFREG; $$.obj = $6.obj; }
+			|	IF '(' REG ')' command 					{ $$.sval =  $3.sval; $$.ival = Conditional.IFREG; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$5.obj); }
+			|	IF '(' '!' REG ')' '{' commands '}'		{ $$.sval =  $4.sval; $$.ival = Conditional.IFREG; $$.obj = $7.obj; }
+			|	IF '(' '!' REG')' command 				{ $$.sval =  $4.sval; $$.ival = Conditional.IFREG; $$.obj = new LinkedList<Entry>(); ((LinkedList<Entry>)$$.obj).add((Entry)$6.obj); }
 			;
 			
 else		:	ELSE '{' commands '}'				{ $$.obj = $3.obj; }
@@ -115,6 +145,14 @@ arg			:	STRING								{ $$.sval = StringAllocator.allocate($1.sval); }
 
 	public TAParser(Reader r) {
 		lexer = new TALexer(r, this);
+	}
+	
+	public TAParser(InputStream[] is) {
+		lexer = new TALexer(is, this);
+	}
+
+	public TAParser(java.io.File[] f) {
+		lexer = new TALexer(f, this);
 	}
 
 	

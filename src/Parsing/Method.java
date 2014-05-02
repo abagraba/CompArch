@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import Engine.Boolean;
 import Engine.BooleanAllocator;
+import Engine.ContinueAllocator;
 import Engine.InputAllocator;
 import Engine.StringAllocator;
 import Engine.SyscallAllocator;
@@ -15,17 +16,17 @@ public class Method extends Entry {
 
 	protected static final int		print		= 0;
 	protected static final int		println		= 1;
-	protected static final int		jump		= 2;
-	protected static final int		input		= 3;
-	protected static final int		cont		= 4;
-	protected static final int		option		= 5;
-	protected static final int		checkpoint	= 6;
-	protected static final int		set			= 7;
-	protected static final int		unset		= 8;
-	protected static final int		ifelse		= 9;
+	protected static final int		printint	= 2;
+	protected static final int		jump		= 3;
+	protected static final int		input		= 4;
+	protected static final int		cont		= 5;
+	protected static final int		option		= 6;
+	protected static final int		checkpoint	= 7;
+	protected static final int		set			= 8;
+	protected static final int		unset		= 9;
 
-	private static final String[]	methodName	= new String[] { "Print", "Println", "Jump", "Input", "Continue", "Checkpoint", "Set", "Unset",
-			"IfElse"							};
+	private static final String[]	methodName	= new String[] { "Print", "Println", "PrintInt", "Jump", "Input", "Continue", "Checkpoint", "Set",
+			"Unset"							};
 
 	protected int					method;
 	protected String[]				args;
@@ -65,6 +66,16 @@ public class Method extends Entry {
 					SyscallAllocator.call(4, args[0]);
 				SyscallAllocator.call(4, "string0");
 				break;
+			case printint:
+				if (argCheck(n, 0, 1))
+					return;
+				if (n == 1) {
+					i = Integer.parseInt(args[0]);
+					SyscallAllocator.call(1, i);
+				}
+				else
+					SyscallAllocator.call(1);
+				break;
 			case jump:
 				if (argCheck(n, 1))
 					return;
@@ -95,7 +106,8 @@ public class Method extends Entry {
 			case cont:
 				if (argCheck(n, 0))
 					return;
-				String label = InputAllocator.allocate();
+				SyscallAllocator.call(4, "string0");
+				String label = ContinueAllocator.allocate();
 				String labelend = label + "_end";
 				SyscallAllocator.call(4, "string10");
 				Output.print("		addi	$t9, $0, 32"); // '1' = 0

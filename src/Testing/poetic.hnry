@@ -1,0 +1,216 @@
+room main{
+	goto(act1)
+}
+
+room act1{
+	println("~~~~~~~~~~~~~~ ACT 1 ~~~~~~~~~~~~~~")
+	println("Whereupon a man searches for his destiny.")
+	println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	println()
+
+	//Ballad Iambic Meter (4, 3, 4, 3) 
+
+	println("Your back upon the tavern floor,")
+	println("Pushed back against the door.")
+	println("The crowd with mirth across their faces,")
+	println("Laugh at your cry for war.")
+	println()
+	
+	println("And with a huff, you grab your stuff,")
+	println("You step out to the moor.")
+	continue()
+
+	println("You can't believe the people's mirth,")
+	println("You tried to prove your worth.")
+	println("No help from them shall you receive,")
+	println("You stride across the earth.")
+	println()
+	
+	println("And with a huff, you grab your stuff,")
+	println("You set off for the firth.")
+	continue()
+	
+	println("The tough terrain, it strains your will,")
+	println("Wild creatures irk you still.")
+	println("Opposed by land and earth and sea,")
+	println("As evil things you kill.")
+	println()
+	
+	println("And with a huff, you grab your stuff,")
+	println("You set off for the hills.")
+	continue()
+
+	println("Deep from the shadows dark things stare,")
+	println("As you approach with care.")
+	println("To meet the prophet dark and deep")
+	println("across the chasm there.")
+	println()
+	
+	println("And with a huff, you grab your stuff,")
+	println("You step across the air.")
+	continue()
+
+	println("Behind you stands a chasm wide,")
+	println("Before you stands a cave.")
+	println("The only ones who may proceed,")
+	println("Are warriors most brave.")
+	println()
+
+	option(1, "Proceed into the darkened cave.")
+	option(2, "Jump into the chasm.")
+	input(2)
+	switchr{
+		['1']
+			println("The brave man wandered deep within,")
+			println("Discovering a phantasm.")
+			println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+			continue()
+			goto(act2)			
+		['2']
+			println("The poor soul wandered off the edge,")
+			println("Landing with a spasm.")
+			goto(death)
+	}
+}
+
+room act2{
+	println("~~~~~~~~~~~~~~ ACT 2 ~~~~~~~~~~~~~~")
+	println("Whereupon a man meets his destiny.")
+	println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	println()
+
+	//Iambic Meter (5, 5, 5, 3)	
+	println("The ghost was of a maiden young and fair,")
+	println("With clothes that flowed so smoothly on the air.")
+	println("With limbs of length henceforth unseen by man,")
+	println("She wavered like a dream.")
+	continue()
+	
+	println("Upon approach she spun with greatest fright,")
+	println("With eyes a timid pool of darkest night,")
+	println("Upon her face a countenance of fear,")
+	println("She let out such a scream.")
+	continue()
+
+	//Iambic Meter (5, 3, 5, 3)	
+	println("'In the eleventh room of the fourth floor,'")
+	println("'Of ancient tower white.'")
+	println("'The answer to the secret sacred door,'")
+	println("'Behind the darkest light.'")
+	continue()
+	
+	//Iambic Meter (5, 5, 5, 3)	
+	println("The brave explorer pondered what she said,")
+	println("as her voice, loudly echoed through his head.")
+	println("The mystery and loot excited him.")
+	println("He packed up his supplies.")
+	continue()
+
+	println("O'er land and sea and sky and life he went,")
+	println("At last he found it in the fields of Ghent,")
+	println("He gladly started on his long ascent,")
+	println("A sight for his sore eyes.")
+	continue()
+
+	//Iambic Meter (5, 3, 5, 3)	
+	println("And there he found the secret room of yore,")
+	println("Courageous rigid knight,")
+	println("In the eleventh room of the fourth floor,")
+	println("Of ancient tower white.")
+	println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+	continue()
+	
+	goto(intermission)
+}
+
+room intermission{
+	if (vault){
+		$t0 = 0
+		if (console1)
+			$t0 += 1
+		if (console2)
+			$t0 += 1
+		if (console3)
+			$t0 += 1
+		if (console4)
+			$t0 += 1
+		if (console5)
+			$t0 += 1
+		if (console6)
+			$t0 += 1
+		if (console7)
+			$t0 += 1
+		if (console8)
+			$t0 += 1
+		if (console9)
+			$t0 += 1
+		if (console10)
+			$t0 += 1
+		if (console11)
+			$t0 += 1
+		if (console12)
+			$t0 += 1
+		$t1 = $t0 == 12
+		print("There are ")
+		$a0 = $t0
+		printint()
+		println(" lights lit above the door.")
+	}
+	else {
+		println("You find yourself before a large vault door.")
+		println("At long last you have found it.")
+		println()
+		println("The vault door has 12 large lights embedded in the wall above it.")
+		println("At long last you have found it.")
+		set(vault)
+	}
+	
+	continue()
+	goto(intermission)
+}
+
+room death{
+	println()
+	println("He lay upon the cold, hard ground")
+	println("And released his final breath.")
+	println("With knuckles bare and matted hair")
+	println("He turned to face his death.")
+	println("       ___________   ")
+	println("      /           \\  ")
+	println("     /  __     __  \\ ")
+	println("    /  |__| | |__|  \\")
+	println("    |  | \\  | |     |")
+	println("    |               |")
+	println("    |  'Poor Soul'  |")
+	println("    |               |")
+	println("    |  1965 - 2014  |")
+	println("    |               |")
+	println("    |_______________|")
+	continue()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+	println()
+   	println()
+   	println()
+   	println()
+   	println()
+   	println()
+   	goto(main)
+}

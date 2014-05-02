@@ -1,0 +1,235 @@
+room mystStart{
+	println("I opened my eyes.")
+	println("I was in a police station,\ncaptain was briefing me and a room full of detectives. The time was 10AM.")
+	unset(Gun)
+	continue()
+	println("'OK, listen up!' He said, 'We got a dead body down by the docks.")
+	println("I want you to go down there and find the perpetrator.")
+	option(1, "Go to car.")
+	option(2, "Walk.")
+	option(3, "Go back to sleep.")
+	
+	input(3)
+	switchr{
+		['1']
+			println("I played along. I went outside and looked up at the sky.")
+			println("Dark clouds loomed ahead of me. Rain was coming.")
+			goto(mystCar)
+		['2']
+			println("I opened the door and started walking.")
+			println("Dark clouds loomed ahead of me. Rain was coming.")
+			goto(mystWalk)
+		['3']
+			println("Not knowing where I was, or why I was there, I just went back to sleep.")
+			println("This wasn't my story.")
+			goto(mystGrue)
+	}
+}
+
+room mystCar{
+	println("I climbed into the drivers seat. The keys were in the ignition.")
+	println("How convenient. I should have known.")
+	option(1, "Start car.")
+	option(2, "Check glove box.")
+	option(3, "Put the car in neutral.")
+	input(3)
+	switchr{
+		['1']
+			println("I started the car. That was my first mistake.")
+			println("I drove down to the dock.")
+			goto(mystDock)
+			
+		['2']
+			println("I opened the glove box.")
+			println("A six shot revolver fell to the floor.")
+			goto(mystCarGun)
+		['3']
+			println("I set the car into neutral. That was a mistake.")
+			println("The car started to roll. Slowly drifting into the intersection.")
+			println("Rain began to hit the windshield.")
+			println("I saw the truck and heard the horn. Everything went black.")
+			goto(hospital)
+	}
+}
+room mystCarGun{
+	println("I stared at the gun for a moment. Stunned.")
+	option(1, "Inspect Gun")
+	option(2, "Take Gun")
+	option(3, "Dispose of Gun")
+	input(3)
+	switchr{
+		['1']
+			println("I picked up the gun and took a look at it.")
+			println("It was heavier than I expected.")
+			unset(gunLocked)
+			goto(mystGunInspect)
+		['2']
+			println("I quickly holstered the gun, and started the car.")
+			println("Driving to the dock, the rain began.")
+			set(Gun)
+			goto(preDock)
+		['3']
+			println("I quickly disposed of the gun, and started the car.")
+			println("Driving to the dock, the rain began.")
+			goto(preDock)
+	}
+}
+room mystGunInspect{
+	option(1, "Rotate gun.")
+	option(2, "Remove magazine.")
+	option(3, "Check safety.")
+	option(4, "Take the gun.")
+	option(5, "Discard the gun.")
+	input(5)
+	switchr{
+		['1']
+			if(gunLocked){
+				println("It was some generic gun. Serial number a1d2e3.")
+				goto(mystGunInspect)
+			}
+			else{
+				println("I rotated the gun, and it went off, the bullet ricocheted into my leg.")
+				println("I passed out, I really should have checked the safety.")
+				goto(hospital)
+			}
+		['2']
+			if(gunLocked){
+				println("The magazine wouldn't budge.")
+				continue()
+				goto(mystGunInspect)
+			}
+			println("I checked the magazine, it was missing a bullet.")
+			goto(mystGunInspect)
+		['3']
+			if(gunLocked){
+				println("The safety was on.")
+				goto(mystGunInspect)
+			}
+			else{
+				println("The safety was off. I turned it on.")
+				set(gunLocked)
+				goto(mystGunInspect)
+			}
+		['4']
+			println("I quickly holstered the gun, and started the car.")
+			println("Driving to the dock, the rain began.")
+			set(Gun)
+			goto(preDock)
+		['5']
+			println("I threw the car into the back, and started the car.")
+			println("Driving to the dock, the rain began.")
+			unset(Gun)
+			goto(mystDock)
+	}
+}
+room mystWalk{
+	println("It was a long walk to the crime scene. The rain began to fall as I approached the black clouds.")
+	goto(mystDock)
+}
+room mystDock{
+	println("I arrived at the crime scene. The time was 11AM, and the rain was falling hard. I'd forgotten an umbrella.")
+	goto(mystEnd)
+}
+room preDock{
+	println("I arrived at the dock, but the crime scene was nowhere to be seen.")
+	println("It was 10:50AM, the rain wasn't letting up, so I took shelter in a convenience store.")
+	continue()
+	println("I picked up a flask of whisky.")
+	set(Whisky)
+	println("As I prepared to leave, a man came into the store, wielding a gun. He demanded the money from the register.")
+	if(Gun){
+		option(1, "Pull out the gun.")
+		option(2, "Run away.")
+		option(3, "Stay.")
+		input(3)
+		switchr {
+			['1']
+				println("I pulled a gun on him as he turned to face me.")
+				println("We stood for a moment staring at eachother.")
+				goto(preStandoff)
+			['2']
+				goto(mystEnd)
+			['3']
+				goto(mystEnd)
+		}
+	}
+	else{
+		println("The guy shot the store owner and turned the gun on me.")
+		println("Lying on the ground, I heard sirens as I passed out.")
+		goto(hospital)
+	}
+}
+room preStandoff{
+	option(1, "Fire.")
+	option(2, "Don't Fire")
+	input(2)
+	switchr{
+		['1']
+			println("I fired just as my backup arrived.")
+			println("'Congradulations!' I was told. I stopped the killer. I was confused to say the least.")
+			goto(mystEnd)
+		['2']
+			println("I couldn't bring myself to do it. I put down the gun, and was shot in the leg.")
+			println("Lying on the ground, I heard sirens as I passed out.")
+			goto(hospital)
+	}
+}
+room hospital{
+	println("I awoke in a hospital bed, tubes in my arm.")
+	println("A pair of armed guards stood outside the door on either side.")
+	continue()
+	println("Rain pummeled to window.")
+	println("A clock on the wall told me that it was 9:36PM.")
+	option(1, "Pull out the tubes.")
+	option(2, "Go back to sleep.")
+	input(2)
+	switchr {
+		['1']
+			println("I pulled those tupes out my arm and sat up.")
+			println("My head was killing me, but I managed to stumble to my feet.")
+			goto(hospitalUp)
+		['2']
+			println("I fell back to sleep.")
+			continue()
+			println("When I awoke, the armed men were there waiting.")
+			goto(mystPrison)
+	}
+}
+room hospitalUp{
+	println("The room was just about empty.")
+	println("There was nothing I could use as a weapon.")
+	continue()
+	option(1, "Open the window.")
+	option(2, "Go out the door.")
+	input(2)
+	switchr {
+		['1']
+			println("I went to the window and opened it.")
+			println("When I unlatched it, the window swung open as if on its own.")
+			println("Rain blew into the room. I went out onto the slippery ledge.")
+			goto(hospital2)
+		['2']
+			println("I walked out the door, don't know what I was thinking.")
+			println("As I left the room, I was hit over the head, and was knocked out immediately.")
+			goto(mystGrue)
+	}
+}
+room hospital2{
+	println("I forced myself into the adjoining room.")
+	goto(mystEnd)
+}
+room mystGrue{
+	println("I was devoured by a grue.")
+	goto(mystEnd)
+}
+room mystPrison{
+	println("I was convicted of a crime, don't know what.")
+	println("For the past 20 years I've been here in prison, withering away.")
+	goto(mystEnd)
+}
+room mystEnd{
+	println("That was how I met my fate.")
+	continue()
+	goto(main)
+}
+
